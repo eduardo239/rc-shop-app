@@ -1,0 +1,83 @@
+body {
+  background-color: #1b1b1b;
+  color: #fff;
+}
+
+a {
+  color: #ff3e88;
+}
+
+a:hover {
+  color: #ff7ec4;
+  text-decoration: none;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  background-color: #121212;
+  color: #fff;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+th,
+td {
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 0.875rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid #121212;
+}
+
+.form-radio__wrapper {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.form-radio__wrapper label {
+  margin-bottom: 0px;
+  width: 100%;
+}
+
+.form-radio {
+  display: inline-block;
+  margin-right: 10px;
+  height: 1.25rem;
+  width: 1.25rem;
+}
+/* - - - - - - - - - - - menu - - - - - - - - - - -  */
+
+.menu {
+  display: inline-flex;
+  gap: 1rem;
+}
+
+.menu__item {
+  width: 100%;
+  padding: 1rem;
+  justify-content: center;
+}
+/* - - - - - - - - - - - user - - - - - - - - - - -  */
+.user-wrapper {
+  display: grid;
+  grid-template-columns: minmax(200px, auto) 1fr;
+}
+
+.user-avatar__img {
+  height: auto;
+  border-radius: 200px;
+}
+/* - - - - - - - - - - - item - - - - - - - - - - -  */
+.item-wrapper {
+  display: flex;
+  gap: 1rem;
+}
