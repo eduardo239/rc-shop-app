@@ -14,8 +14,16 @@ function SignIn() {
   return (
     <section>
       <form>
-        <Input type="text" onChange={setEmail} value={email} />
-        <Input type="password" onChange={setPassword} value={password} />
+        <Input
+          type="text"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+        />
+        <Input
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+        />
         <Button value="Login" onClick={handleSubmit} />
       </form>
     </section>

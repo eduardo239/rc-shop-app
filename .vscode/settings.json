@@ -1,13 +1,12 @@
 {
-  "cSpell.words": [
-    "LEZZ"
-  ],"files.exclude": {
+  "cSpell.words": ["LEZZ"],
+  "files.exclude": {
     "node_modules": true,
     "server/node_modules": true,
     "**/*.json": true,
     ".env.*": true,
     ".gitignore": true,
     "public": true,
-    "README.md": true
-}
+    "README.md": false
+  }
 }

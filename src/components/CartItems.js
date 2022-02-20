@@ -12,7 +12,7 @@ function CartItems() {
     <section>
       <div>
         <h2>Itens</h2>
-        <CartTableItems />
+        <CartTableItems quantity={quantity} setQuantity={setQuantity} />
       </div>
       <div>
         <Button value="Voltar" />

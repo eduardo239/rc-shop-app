@@ -15,14 +15,22 @@ function CartTableItems({ quantity, setQuantity }) {
           <td>Item 1</td>
           <td>R$ 10,00</td>
           <td>
-            <Input type="number" value={quantity} onChange={setQuantity} />
+            <Input
+              type="number"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+            />
           </td>
         </tr>
         <tr>
           <td>Item 2</td>
           <td>R$ 420,00</td>
           <td>
-            <Input type="number" value={quantity} onChange={setQuantity} />
+            <Input
+              type="number"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+            />
           </td>
         </tr>
       </tbody>
