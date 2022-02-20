@@ -3,7 +3,7 @@ import poster_default from '../assets/card_img.jpg';
 
 function Items() {
   return (
-    <section className="grid">
+    <section className="cards-wrapper">
       <Card
         id="1"
         title="Card Title"

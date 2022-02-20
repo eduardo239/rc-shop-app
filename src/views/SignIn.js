@@ -12,18 +12,22 @@ function SignIn() {
   };
 
   return (
-    <section>
-      <form>
+    <section className="flex-center flex-middle">
+      <form className="sign-form">
+        <h2>Login</h2>
         <Input
-          type="text"
+          label="Email"
+          type="email"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
         />
         <Input
+          label="Password"
           type="password"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
+
         <Button value="Login" onClick={handleSubmit} />
       </form>
     </section>

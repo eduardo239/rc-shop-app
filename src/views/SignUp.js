@@ -14,12 +14,33 @@ function SignUp() {
   };
 
   return (
-    <section>
-      <form>
-        <Input type="password" onChange={setName} value={name} />
-        <Input type="text" onChange={setEmail} value={email} />
-        <Input type="password" onChange={setPassword} value={password} />
-        <Input type="password" onChange={setPassword2} value={password2} />
+    <section className="flex-center flex-middle">
+      <form className="sign-form">
+        <h2>Registro</h2>
+        <Input
+          label="Name"
+          type="text"
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+        />
+        <Input
+          label="Email"
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+        />
+        <Input
+          label="Password"
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+        />
+        <Input
+          label="Password Again"
+          type="password"
+          onChange={(e) => setPassword2(e.target.value)}
+          value={password2}
+        />
         <Button value="Registrar" onClick={handleSubmit} />
       </form>
     </section>

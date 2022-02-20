@@ -1,6 +1,9 @@
-function Button({ value, onClick }) {
+function Button({ value, full, onClick }) {
   return (
-    <button className="btn btn-primary" onClick={onClick}>
+    <button
+      className={`btn btn-primary ${full ? 'btn-full' : ''}`}
+      onClick={onClick}
+    >
       {value}
     </button>
   );

@@ -10,11 +10,11 @@ function Card({ id, title, content, alt, poster }) {
   };
 
   return (
-    <div>
-      <img src={poster} alt={alt} />
-      <h1>{title}</h1>
-      <p>{content}</p>
-      <Button value="Comprar" onClick={handleClick} />
+    <div className="card">
+      <img className="card--img" src={poster} alt={alt} />
+      <p className="card--title">{title}</p>
+      <p className="card--content">{content}</p>
+      <Button full value="Comprar" onClick={handleClick} />
     </div>
   );
 }
