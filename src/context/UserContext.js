@@ -9,6 +9,7 @@ const UserContextContent = ({ children }) => {
   const [userItems, setUserItems] = useState([]);
   const [userAddress, setUserAddress] = useState(null);
   const [userPayment, setUserPayment] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   return (
     <UserProvider
@@ -21,6 +22,8 @@ const UserContextContent = ({ children }) => {
         setUserAddress,
         userPayment,
         setUserPayment,
+        userId,
+        setUserId,
       }}
     >
       {children}

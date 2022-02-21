@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import { BrowserRouter } from 'react-router-dom';
+import { UserContextContent } from './context/UserContext';
 
 import App from './App';
-
-import { UserContextContent } from './context/UserContext';
 
 import './css/reset.css';
 import './css/normalize.css';

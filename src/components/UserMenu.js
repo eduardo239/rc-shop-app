@@ -9,7 +9,7 @@ function UserMenu() {
 
       <Avatar url={random_avatar} />
       <div>
-        <h1>User</h1>
+        <h4>User</h4>
         <ul>
           <li>
             <Link to="/user/234234234234">User</Link>

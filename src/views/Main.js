@@ -16,7 +16,7 @@ import CartPayment from '../components/CartPayment';
 function Main() {
   return (
     <section>
-      <div className="bg-darker mb-5">
+      <div className="bg-darker mb-10">
         <Menu />
       </div>
       <section className="container">

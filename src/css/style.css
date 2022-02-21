@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans:400');
-
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
 :root {
   --color-primary: #dbefbc;
   --color-secondary: #f5f5f5;
@@ -21,7 +20,7 @@
   --color-warning: #ff9800;
   --color-info: #2196f3;
 
-  --font-noto-sans: 'Noto Sans', Arial, Helvetica, sans-serif;
+  --font-noto-sans: 'Raleway', Arial, Helvetica, sans-serif;
 }
 
 *,
@@ -174,7 +173,7 @@ tr {
 button {
   outline: 0;
   border: 1px solid transparent;
-  padding: 12px 32px;
+  padding: 5px 32px;
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.36px;
