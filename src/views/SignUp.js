@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/firebase';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 import api from '../api';
 import Input from '../form/Input';
 import Button from '../form/Button';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../context/UserContext';
 
 function SignUp() {
   const { user } = useContext(UserContext);

@@ -6,6 +6,7 @@ const UserProvider = UserContext.Provider;
 
 const UserContextContent = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
   const [userItems, setUserItems] = useState([]);
   const [userAddress, setUserAddress] = useState(null);
   const [userPayment, setUserPayment] = useState(null);
@@ -24,6 +25,8 @@ const UserContextContent = ({ children }) => {
         setUserPayment,
         userId,
         setUserId,
+        userInfo,
+        setUserInfo,
       }}
     >
       {children}

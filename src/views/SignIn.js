@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
+import { isEmpty } from '../helper';
 import Input from '../form/Input';
 import Button from '../form/Button';
-import { isEmpty } from '../helper';
 
 function SignIn() {
   const { setUser, user } = useContext(UserContext);

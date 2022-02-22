@@ -8,7 +8,7 @@ const User = new Schema(
     uid: { type: String, required: true },
     avatar: { type: String, required: true },
     email: { type: String, required: true },
-    isAdming: { type: Boolean, required: true, default: false },
+    isAdmin: { type: Boolean, required: true, default: false },
   },
   { timestamps: true }
 );

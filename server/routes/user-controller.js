@@ -50,7 +50,7 @@ const allUsers = (req, res) => {
 };
 
 const userById = (req, res) => {
-  User.findOne({ _id: req.params.id }, (err, item) => {
+  User.findOne({ uid: req.params.id }, (err, item) => {
     if (err) {
       return res.status(400).json({ success: false, error: err });
     }
@@ -65,7 +65,6 @@ const userById = (req, res) => {
 };
 
 const deleteUser = (req, res) => {
-  console.log(req.params.id);
   User.findOneAndDelete({ _id: req.params.id }, (err, user) => {
     if (err) {
       return res.status(400).json({ success: false, error: err });

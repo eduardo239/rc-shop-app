@@ -1,11 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { UserContext } from './context/UserContext';
 import Main from './views/Main';
-import { auth } from './firebase/firebase';
+// import { auth } from './firebase/firebase';
+import apis from './api';
 
 function App() {
-  const { setUser, setUserId } = useContext(UserContext);
+  const { user, setUser, setUserId, setUserInfo } = useContext(UserContext);
 
   useEffect(() => {
     const auth = getAuth();
@@ -31,6 +32,18 @@ function App() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      (async () => {
+        const {
+          data: { data },
+        } = await apis.getUserById(user.uid);
+        setUserInfo(data);
+      })();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <section>

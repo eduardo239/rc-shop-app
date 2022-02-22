@@ -144,6 +144,14 @@ input[type='checkbox'] {
   margin-right: 10px;
 }
 
+input[type='radio']:disabled,
+input[type='checkbox']:disabled {
+  opacity: 1;
+}
+
+input[type='color'] {
+  height: 38.5px;
+}
 th {
   background-color: var(--color-dark-darker);
   color: var(--color-light);
@@ -194,6 +202,11 @@ button {
   background-color: var(--color-primary-light);
 }
 /* - - - - - - - - - - - grid - - - - - - - - - - -  */
+.flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 .flex-center {
   display: flex;
   justify-content: center;
@@ -216,12 +229,14 @@ button {
   align-items: center;
 }
 
-.form-radio__wrapper label {
+.form-radio__wrapper label,
+.form-checkbox__wrapper label {
   margin-bottom: 0px;
   width: 100%;
 }
 
-.form-radio {
+.form-radio,
+.form-checkbox {
   display: inline-block;
   margin-right: 10px;
   height: 1.25rem;
@@ -237,6 +252,9 @@ button {
   margin-bottom: 2px;
 }
 
+.form-control__input-button {
+  display: flex;
+}
 /* - - - - - - - - - - - menu - - - - - - - - - - -  */
 .menu {
   display: inline-flex;
@@ -289,6 +307,16 @@ button {
 .sign-form {
   display: grid;
   grid-template-columns: minmax(200px, 400px);
+}
+
+.sign-form-2 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.sign-form-2 > * {
+  flex: 1;
 }
 
 .sign-form > input,

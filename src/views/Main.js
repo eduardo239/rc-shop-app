@@ -12,6 +12,7 @@ import Cart from './Cart';
 import CartItems from '../components/CartItems';
 import CartAddress from '../components/CartAddress';
 import CartPayment from '../components/CartPayment';
+import Admin from '../admin';
 
 function Main() {
   return (
@@ -37,6 +38,7 @@ function Main() {
                 <Route path="orders" element={<UserOrders />} />
                 <Route path="edit" element={<UserEdit />} />
               </Route>
+              <Route exact path="/admin" element={<Admin />} />
             </Routes>
           </div>
         </div>
