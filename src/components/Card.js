@@ -1,7 +1,7 @@
 import Button from '../form/Button';
 import { useNavigate } from 'react-router-dom';
 
-function Card({ id, title, content, alt, poster }) {
+function Card({ id, title, content, alt, poster, colors, storages, specs }) {
   let navigate = useNavigate();
 
   const handleClick = (e) => {

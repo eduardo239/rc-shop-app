@@ -1,38 +1,37 @@
 import Card from '../components/Card';
 import poster_default from '../assets/card_img.jpg';
+import { useEffect, useState } from 'react';
+import apiItem from '../api/item';
 
 function Items() {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await apiItem.getAllItems();
+      setItems(response.data.data);
+    })();
+  }, []);
+
   return (
     <section className="cards-wrapper">
-      <Card
-        id="1"
-        title="Card Title"
-        poster={poster_default}
-        alt="poster"
-        content="Foguete da Space X vai se chocar com a Lua em Março Rapahel Veiga perde
-        o Mundial e a namorada Padre sai de Paróquia por mandar vídeo erótico em
-        grupo"
-      />
-
-      <Card
-        id="2"
-        title="Card Title"
-        poster={poster_default}
-        alt="poster"
-        content="Foguete da Space X vai se chocar com a Lua em Março Rapahel Veiga perde
-        o Mundial e a namorada Padre sai de Paróquia por mandar vídeo erótico em
-        grupo"
-      />
-
-      <Card
-        id="3"
-        title="Card Title"
-        poster={poster_default}
-        alt="poster"
-        content="Foguete da Space X vai se chocar com a Lua em Março Rapahel Veiga perde
-        o Mundial e a namorada Padre sai de Paróquia por mandar vídeo erótico em
-        grupo"
-      />
+      {items.length > 0 ? (
+        items.map((item) => (
+          <Card
+            key={item._id}
+            id={item._id}
+            title={item.name}
+            poster={item.poster ? item.poster : poster_default}
+            alt={item.name}
+            content={item.description}
+            colors={item.colors}
+            storages={item.storages}
+            specs={item.specs}
+          />
+        ))
+      ) : (
+        <p>Não há itens cadastrados</p>
+      )}
     </section>
   );
 }

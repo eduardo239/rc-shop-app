@@ -116,10 +116,26 @@ const updateItem = (req, res) => {
   });
 };
 
+const searchItems = (req, res) => {
+  Item.find({ name: new RegExp(req.params.term, 'i') }, (err, item) => {
+    if (err) {
+      return res.status(400).json({ success: false, error: err });
+    }
+
+    if (!item) {
+      return res.status(404).json({ success: false, error: `Items not found` });
+    }
+    return res.status(200).json({ success: true, data: item });
+  })
+    .clone()
+    .catch((err) => console.error(err));
+};
+
 module.exports = {
   createItem,
   items,
   deleteItem,
   updateItem,
   itemById,
+  searchItems,
 };

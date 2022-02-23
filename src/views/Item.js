@@ -1,31 +1,67 @@
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import apiItem from '../api/item';
 import poster_default from '../assets/cel.png';
 import Button from '../form/Button';
 
 function Item() {
   const { id } = useParams();
+  const [item, setItem] = useState({});
 
   const handleBuy = () => {
     console.log('buying');
   };
 
+  useEffect(() => {
+    (async () => {
+      if (id) {
+        const response = await apiItem.getItemById(id);
+        setItem(response.data.data);
+      }
+    })();
+  }, [id]);
+
   return (
     <section className="item-wrapper">
-      <div>
-        <img src={poster_default} alt="" />
+      <div className="item-wrapper__poster">
+        <h4>Title: {item.name}</h4>
+
+        <img src={item.poster ? item.poster : poster_default} alt="" />
       </div>
 
-      <div>
-        <h2>Title: {id}</h2>
-        <p>Description</p>
-        <hr />
-        <div>
-          <span>Color: RED, BLU</span>
+      <div className="item-wrapper__info">
+        <div className="flex-1">
+          <h5>Cores</h5>
+          <div className="item-wrapper__info-color mb-20">
+            {item?.colors?.length > 0 ? (
+              item.colors.map((color) => (
+                <button
+                  key={color}
+                  style={{ backgroundColor: color }}
+                  className="btn-color-select"
+                ></button>
+              ))
+            ) : (
+              <p>Não há armazéns cadastrados</p>
+            )}
+          </div>
+          <h5>Aramzenamento</h5>
+          <div className="item-wrapper__info-color mb-20">
+            {item?.storages?.length > 0 ? (
+              item.storages.map((storage) => (
+                <button className="btn-storage-select" key={storage}>
+                  {storage} GB
+                </button>
+              ))
+            ) : (
+              <p>Não há armazéns cadastrados</p>
+            )}
+          </div>
+          <div>
+            <p>Description: {item.description}</p>
+          </div>
         </div>
-        <div>
-          <span>Armazenamento: 64, 128</span>
-        </div>
-        <hr />
+
         <Button value="Comprar" onClick={handleBuy} />
       </div>
     </section>

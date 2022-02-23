@@ -5,18 +5,20 @@ const api = axios.create({
 });
 export const createNewItem = (payload) =>
   api.post(`/create-new-product`, payload);
+export const getAllItems = () => api.get(`/products`);
+export const getItemById = (uid) => api.get(`/product/${uid}`);
+export const getItemsByTerm = (term) => api.get(`/search/${term}`);
 // TODO:
-export const getUserById = (uid) => api.get(`/user/${uid}`);
-export const getAllUsers = () => api.get(`/users`);
 export const deleteUser = (id) => api.delete(`/user/delete/${id}`);
 export const updateUser = (id, payload) => api.put(`/update/${id}`, payload);
 
 const apiItem = {
   createNewItem,
-  getUserById,
-  getAllUsers,
+  getItemById,
+  getAllItems,
   updateUser,
   deleteUser,
+  getItemsByTerm,
 };
 
 export default apiItem;

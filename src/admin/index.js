@@ -40,8 +40,8 @@ function App() {
         colors,
         storages,
       };
-      console.log(payload);
-      // await apiItem.createNewItem(payload);
+
+      await apiItem.createNewItem(payload);
     } catch (err) {
       console.log(err);
       //   const y = error.response?.data?.err?.errors;
@@ -52,7 +52,7 @@ function App() {
   // generate random picture
   const generatePoster = () => {
     const random = Math.floor(Math.random() * 100);
-    setPoster(`https://picsum.photos/200/300?random=${random}`);
+    setPoster(`https://picsum.photos/400/400?random=${random}`);
   };
 
   const handleAddToArray = (type) => {
@@ -73,6 +73,7 @@ function App() {
   useEffect(() => {
     if (user) {
       (async () => {
+        generatePoster();
         if (!userInfo.isAdmin) navigate('/');
       })();
     } else {
@@ -164,7 +165,7 @@ function App() {
               onChange={(e) => setStorages(e.target.value)}
               value={storages}
             />
-
+            {/* TOD: */}
             <Input
               label="Especificações"
               type="text"
@@ -188,6 +189,7 @@ function App() {
             />
             <hr />
 
+            <Button value="Reset" onClick={handleSubmit} />
             <Button value="Cadastrar" onClick={handleSubmit} />
           </div>
         </form>

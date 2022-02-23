@@ -1,9 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from 'firebase/auth';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from '../context/UserContext';
+import Search from './Search';
+import apiItem from '../api/item';
 
 function Menu() {
+  const [term, setTerm] = useState('');
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const auth = getAuth();
@@ -21,6 +24,16 @@ function Menu() {
         window.localStorage.removeItem('userId');
         return navigate('/');
       });
+  };
+
+  const handleSearch = async (x) => {
+    setTerm(x);
+    if (x.length > 2) {
+      // fetch data from api
+      const response = await apiItem.getItemsByTerm(x);
+
+      // set data to context
+    }
   };
 
   return (
@@ -42,6 +55,10 @@ function Menu() {
                 <Link to="/admin">Admin</Link>
               </li>
             </ul>
+            <Search
+              value={term}
+              onChange={(e) => handleSearch(e.target.value)}
+            />
             <ul className="menu">
               {!user && (
                 <>
