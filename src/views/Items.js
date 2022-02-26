@@ -7,10 +7,12 @@ function Items() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
+    let isMounted = true;
     (async () => {
       const response = await apiItem.getAllItems();
-      setItems(response.data.data);
+      if (isMounted) setItems(response.data.data);
     })();
+    return () => (isMounted = false);
   }, []);
 
   return (

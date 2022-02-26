@@ -24,9 +24,7 @@ function App() {
       } = await apis.getAllUsers();
       if (isMounted) setUsers(data);
     })();
-    return () => {
-      isMounted = false;
-    };
+    return () => (isMounted = false);
   }, []);
 
   useEffect(() => {

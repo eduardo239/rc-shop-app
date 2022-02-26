@@ -19,6 +19,9 @@ const Items = new Schema({
   promo: { type: String, required: false },
   quantity: { type: Number, required: true },
   total: { type: Number, required: true },
+  name: { type: String, required: true },
+  color: { type: String, required: true },
+  storage: { type: String, required: true },
 });
 
 const Order = new Schema(

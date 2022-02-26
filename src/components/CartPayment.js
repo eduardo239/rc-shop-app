@@ -9,6 +9,7 @@ function CartPayment() {
   let navigate = useNavigate();
 
   const [payment, setPayment] = useState('credit');
+  // eslint-disable-next-line no-unused-vars
   const [address, setAddress] = useState(null);
 
   return (

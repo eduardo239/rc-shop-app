@@ -8,7 +8,7 @@ import ButtonIcon from '../form/ButtonIcon';
 import CartTableAddress from './CartTableAddress';
 
 function CartAddress() {
-  const { setAddress, address } = useContext(OrderContext);
+  const { setAddress, address, order, setOrder } = useContext(OrderContext);
 
   let navigate = useNavigate();
 
@@ -60,6 +60,7 @@ function CartAddress() {
 
   const handleChange = () => {
     setAddress(a);
+    setOrder({ ...order, address: a });
   };
 
   useEffect(() => {

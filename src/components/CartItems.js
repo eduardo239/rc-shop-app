@@ -17,7 +17,7 @@ function CartItems() {
       <div>
         <h3>Itens</h3>
         <CartTableItems
-          items={order}
+          order={order}
           quantity={quantity}
           setQuantity={setQuantity}
         />

@@ -5,23 +5,49 @@ import { MdOutlineAttachMoney } from 'react-icons/md';
 import apiItem from '../api/item';
 import poster_default from '../assets/cel.png';
 import ButtonIcon from '../form/ButtonIcon';
+import { UserContext } from '../context/UserContext';
+import Input from '../form/Input';
 function Item() {
   const { order, setOrder } = useContext(OrderContext);
+  const { userInfo } = useContext(UserContext);
   const { id } = useParams();
 
   const [item, setItem] = useState({});
+  const [quantity, setQuantity] = useState(1);
 
   const handleBuy = () => {
-    setOrder([...order, item]);
+    if (userInfo) {
+      setOrder({
+        ...order,
+        userId: userInfo._id,
+        items: [
+          ...order.items,
+          {
+            itemId: item._id,
+            price: item.price,
+            promo: '',
+            quantity: parseFloat(quantity),
+            total: item.price * parseFloat(quantity),
+            name: item.name,
+            color: item.colors[0],
+            storage: item.storages[0],
+          },
+        ],
+      });
+    } else {
+      alert('Para comprar é necessário estar logado');
+    }
   };
 
   useEffect(() => {
+    let isMounted = true;
     (async () => {
       if (id) {
         const response = await apiItem.getItemById(id);
-        setItem(response.data.data);
+        if (isMounted) setItem(response.data.data);
       }
     })();
+    return () => (isMounted = false);
   }, [id]);
 
   return (
@@ -63,6 +89,13 @@ function Item() {
           <div>
             <p>Description: {item.description}</p>
           </div>
+
+          <Input
+            label="Quantidade"
+            type="number"
+            onChange={(e) => setQuantity(e.target.value)}
+            value={quantity}
+          />
         </div>
 
         <ButtonIcon
