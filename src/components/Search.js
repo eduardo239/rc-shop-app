@@ -1,10 +1,14 @@
-import icon_search from '../assets/icons/bi_search.svg';
-
+import { MdSearch } from 'react-icons/md';
 function Search({ value, onChange }) {
   return (
     <div className="search-wrapper">
-      <input type="search" value={value} onChange={onChange} />
-      <img className="icon" src={icon_search} alt="Pesquisa" />
+      <input
+        className="search-wrapper__input"
+        type="search"
+        value={value}
+        onChange={onChange}
+      />
+      <MdSearch />
     </div>
   );
 }

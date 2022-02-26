@@ -5,12 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import { isEmpty } from '../helper';
 import Input from '../form/Input';
 import Button from '../form/Button';
+import Message from '../components/Message';
 
 function SignIn() {
   const { setUser, user } = useContext(UserContext);
 
   const [email, setEmail] = useState('eduardo@gmail.com');
   const [password, setPassword] = useState('123123');
+
+  const [error, setError] = useState('');
 
   const auth = getAuth();
   const navigate = useNavigate();
@@ -21,7 +24,7 @@ function SignIn() {
       const { user } = await signInWithEmailAndPassword(auth, email, password);
       if (!isEmpty(user)) setUser(user);
     } catch (err) {
-      console.error(err.message);
+      setError(err.message);
     }
   };
 
@@ -50,6 +53,8 @@ function SignIn() {
         />
 
         <Button value="Login" onClick={handleSubmit} />
+
+        {error && <Message type="error" value={error} />}
       </form>
     </section>
   );

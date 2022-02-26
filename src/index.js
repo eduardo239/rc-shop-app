@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { BrowserRouter } from 'react-router-dom';
+
 import { UserContextContent } from './context/UserContext';
+import { ItemContextContent } from './context/ItemContext';
 
 import App from './App';
 
@@ -16,7 +18,9 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserContextContent>
-        <App />
+        <ItemContextContent>
+          <App />
+        </ItemContextContent>
       </UserContextContent>
     </BrowserRouter>
   </React.StrictMode>,

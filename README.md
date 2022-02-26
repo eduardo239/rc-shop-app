@@ -32,3 +32,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### `npm run dev`
 
 Runs the app and server
+
+MdOutlineClear
+MdOutlineAdd

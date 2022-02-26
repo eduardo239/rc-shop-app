@@ -1,5 +1,5 @@
 import Button from '../form/Button';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Card({ id, title, content, alt, poster, colors, storages, specs }) {
   let navigate = useNavigate();
@@ -11,9 +11,15 @@ function Card({ id, title, content, alt, poster, colors, storages, specs }) {
 
   return (
     <div className="card">
-      <img className="card--img" src={poster} alt={alt} />
-      <p className="card--title">{title}</p>
-      <p className="card--content">{content}</p>
+      <Link to={`/${id}`}>
+        <img className="card--img" src={poster} alt={alt} />
+      </Link>
+      <p className="card--title">
+        {title.length > 30 ? title.slice(0, 34) + '...' : title}
+      </p>
+      <p className="card--content">
+        {content.length > 90 ? content.slice(0, 90) + '...' : content}
+      </p>
       <Button full value="Comprar" onClick={handleClick} />
     </div>
   );

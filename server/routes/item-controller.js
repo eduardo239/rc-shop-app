@@ -64,6 +64,7 @@ const itemById = (req, res) => {
 };
 
 const deleteItem = (req, res) => {
+  console.log(req.params.id);
   Item.findOneAndDelete({ _id: req.params.id }, (err, item) => {
     if (err) {
       return res.status(400).json({ success: false, error: err });

@@ -1,13 +1,26 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { UserContext } from '../context/UserContext';
 import Button from '../form/Button';
 import Input from '../form/Input';
+import Message from './Message';
 
 function UserEdit() {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
+  const { user, userInfo } = useContext(UserContext);
 
-  const handleSubmit = (e) => {};
+  const [email, setEmail] = useState(userInfo.email);
+  const [name, setName] = useState(userInfo.username);
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password !== password2) {
+      setError('Passwords do not match');
+    } else {
+      setError('');
+    }
+  };
 
   return (
     <section>
@@ -16,7 +29,7 @@ function UserEdit() {
       </div>
 
       <div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <Input
             label="Name"
             type="text"
@@ -35,7 +48,16 @@ function UserEdit() {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
-          <Button full value="Registrar" onClick={handleSubmit} />
+          <Input
+            label="Password Again"
+            type="password"
+            onChange={(e) => setPassword2(e.target.value)}
+            value={password2}
+          />
+          <div className="mb-20"></div>
+          <Button full value="Salvar" onClick={handleSubmit} />
+          <div className="mb-20"></div>
+          {error && <Message type="error" value={error} />}
         </form>
       </div>
     </section>

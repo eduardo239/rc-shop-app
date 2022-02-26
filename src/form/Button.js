@@ -1,10 +1,21 @@
-function Button({ value, full, onClick }) {
+function Button({
+  icon,
+  iconLabelBefore,
+  iconLabelAfter,
+  value,
+  full,
+  onClick,
+  type,
+}) {
   return (
     <button
-      className={`btn btn-primary ${full ? 'btn-full' : ''}`}
+      className={`${icon ? 'btn-icon' : 'btn'} btn-primary ${
+        full ? 'btn-full' : ''
+      }`}
       onClick={onClick}
+      type={type}
     >
-      {value}
+      {iconLabelBefore} {value} {iconLabelAfter}
     </button>
   );
 }

@@ -17,7 +17,7 @@ import Admin from '../admin';
 function Main() {
   return (
     <section>
-      <div className="bg-darker mb-10">
+      <div className="bg-primary my-20">
         <Menu />
       </div>
       <section className="container">
@@ -42,7 +42,7 @@ function Main() {
             </Routes>
           </div>
         </div>
-      </section>{' '}
+      </section>
     </section>
   );
 }

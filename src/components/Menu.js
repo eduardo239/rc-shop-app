@@ -4,10 +4,21 @@ import { useContext, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import Search from './Search';
 import apiItem from '../api/item';
+import {
+  MdPersonOutline,
+  MdOutlineHouse,
+  MdShoppingCart,
+  MdOutlineAdminPanelSettings,
+  MdOutlineAssignment,
+  MdOutlineAssignmentInd,
+  MdOutlineSensorDoor,
+  MdOutlineMenu,
+} from 'react-icons/md';
 
 function Menu() {
   const [term, setTerm] = useState('');
   const { user, setUser } = useContext(UserContext);
+
   const navigate = useNavigate();
   const auth = getAuth();
 
@@ -40,44 +51,61 @@ function Menu() {
     <div className="container">
       <div className="row">
         <div className="col">
-          <div className="justify-between">
+          <div className="justify-between align-items-center">
             <ul className="menu">
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/">
+                  <MdOutlineHouse />
+                </Link>
               </li>
               <li>
-                <Link to="/">All Items</Link>
+                <Link to="/cart">
+                  <MdShoppingCart />
+                </Link>
               </li>
               <li>
-                <Link to="/cart">Cart</Link>
+                <Link to="/admin">
+                  <MdOutlineAdminPanelSettings />
+                </Link>
               </li>
               <li>
-                <Link to="/admin">Admin</Link>
+                <Link to="/">
+                  <MdOutlineMenu />
+                </Link>
               </li>
             </ul>
-            <Search
-              value={term}
-              onChange={(e) => handleSearch(e.target.value)}
-            />
+
+            {user && (
+              <Search
+                value={term}
+                onChange={(e) => handleSearch(e.target.value)}
+              />
+            )}
             <ul className="menu">
               {!user && (
                 <>
                   <li>
-                    <Link to="/signin">Sign In</Link>
+                    <Link to="/signin">
+                      <MdOutlineAssignmentInd />
+                    </Link>
                   </li>
                   <li>
-                    <Link to="/signup">Sign Up</Link>
+                    <Link to="/signup">
+                      <MdOutlineAssignment />
+                    </Link>
                   </li>
                 </>
               )}
               {user && (
                 <>
                   <li>
-                    <Link to="/user/1">User</Link>
+                    <Link to={`/user/${user.uid}`}>
+                      <MdPersonOutline />
+                    </Link>
                   </li>
                   <li>
                     <Link to="#" className="" onClick={logout}>
-                      logout
+                      <MdOutlineSensorDoor />
                     </Link>
                   </li>
                 </>

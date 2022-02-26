@@ -64,7 +64,23 @@ const userById = (req, res) => {
     .catch((err) => console.error(err));
 };
 
+const userByUsername = (req, res) => {
+  User.findOne({ username: req.params.username }, (err, username) => {
+    if (err) {
+      return res.status(400).json({ success: false, error: err });
+    }
+
+    if (username) {
+      return res.status(200).json({ success: true });
+    }
+    return res.status(200).json({ success: false });
+  })
+    .clone()
+    .catch((err) => console.error(err));
+};
+
 const deleteUser = (req, res) => {
+  console.log(req.params.id);
   User.findOneAndDelete({ _id: req.params.id }, (err, user) => {
     if (err) {
       return res.status(400).json({ success: false, error: err });
@@ -124,4 +140,5 @@ module.exports = {
   deleteUser,
   userById,
   updateUser,
+  userByUsername,
 };

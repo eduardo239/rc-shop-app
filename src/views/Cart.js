@@ -4,7 +4,7 @@ import { UserContext } from '../context/UserContext';
 import CartMenu from '../components/CartMenu';
 
 function Cart() {
-  const { user, userItems, userAddress, userPayment } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   return (
     <section>

@@ -6,8 +6,9 @@ const api = axios.create({
 export const createNewUser = (payload) => api.post(`/create-new-user`, payload);
 export const getUserById = (uid) => api.get(`/user/${uid}`);
 export const getAllUsers = () => api.get(`/users`);
+export const deleteUser = (id) => api.delete(`/delete-user/${id}`);
+export const getUserByUsername = (username) => api.get(`/username/${username}`);
 // TODO:
-export const deleteUser = (id) => api.delete(`/user/delete/${id}`);
 export const updateUser = (id, payload) => api.put(`/update/${id}`, payload);
 
 const apis = {
@@ -16,6 +17,7 @@ const apis = {
   getAllUsers,
   updateUser,
   deleteUser,
+  getUserByUsername,
 };
 
 export default apis;

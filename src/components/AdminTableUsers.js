@@ -1,13 +1,12 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Button from '../form/Button';
-import InputRadio from '../form/InputRadio';
-import CartTableItems from './CartTableItems';
-import CartTableAddress from './CartTableAddress';
 import InputCheck from '../form/InputCheck';
+import apis from '../api';
+import { MdClose, MdOutlineSaveAlt } from 'react-icons/md';
 
 function AdminTableUsers({ users }) {
-  const handleRemove = (id) => {};
+  const handleDelete = async (id) => {
+    await apis.deleteUser(id);
+  };
 
   const handleEdit = (id) => {};
 
@@ -18,11 +17,11 @@ function AdminTableUsers({ users }) {
           <tr>
             <th>Username</th>
             <th>UID</th>
-            <th>_iID</th>
-            <th>Admin</th>
-            <th>Remover</th>
-
-            <th>Atualizar</th>
+            <th>_id</th>
+            <th>email</th>
+            <th className="w-38">A</th>
+            <th className="w-38">D</th>
+            <th className="w-38">U</th>
           </tr>
         </thead>
 
@@ -33,15 +32,24 @@ function AdminTableUsers({ users }) {
                 <td>{user.username}</td>
                 <td>{user.uid}</td>
                 <td>{user._id}</td>
-                <td>
+                <td>{user.email}</td>
+                <td className="w-38">
                   <InputCheck disabled checked={user.isAdmin} />
                 </td>
 
-                <td>
-                  <Button value="del" onClick={handleRemove} />
+                <td className="w-38">
+                  <Button
+                    icon
+                    value={<MdClose />}
+                    onClick={() => handleDelete(user._id)}
+                  />
                 </td>
-                <td>
-                  <Button value="upd" onClick={handleEdit} />
+                <td className="w-38">
+                  <Button
+                    icon
+                    value={<MdOutlineSaveAlt />}
+                    onClick={handleEdit}
+                  />
                 </td>
               </tr>
             ))}
