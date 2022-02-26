@@ -22,7 +22,7 @@ function Main() {
       </div>
       <section className="container">
         <div className="row">
-          <div className="col">
+          <div className="col relative">
             <Routes>
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />

@@ -8,6 +8,7 @@ const ItemProvider = ItemContext.Provider;
 const ItemContextContent = ({ children }) => {
   const [item, setItem] = useState(null);
   const [items, setItems] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     let isMounted = true;
@@ -27,6 +28,8 @@ const ItemContextContent = ({ children }) => {
         setItem,
         items,
         setItems,
+        searchResults,
+        setSearchResults,
       }}
     >
       {children}

@@ -1,5 +1,3 @@
-import Button from '../form/Button';
-import apis from '../api';
 import apiItem from '../api/item';
 import {
   MdOutlineSave,
@@ -34,6 +32,7 @@ function AdminCreateNewItem() {
   const [colors, setColors] = useState([]);
   const [specs, setSpecs] = useState([]);
   const [disabled, setDisabled] = useState(true);
+  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,6 +52,10 @@ function AdminCreateNewItem() {
       await apiItem.createNewItem(payload);
       const res = await apiItem.getAllItems();
       setItems(res.data.data);
+      if (res.status === 200) {
+        setMessage('Item created successfully');
+        setTimeout(() => setMessage(''), 3000);
+      }
     } catch (err) {
       console.log(err);
       //   const y = error.response?.data?.err?.errors;
@@ -74,10 +77,9 @@ function AdminCreateNewItem() {
         colors,
         storages,
       };
-      const xes = await apiItem.updateItem(item._id, payload);
+      await apiItem.updateItem(item._id, payload);
       const res = await apiItem.getAllItems();
       setItems(res.data.data);
-      console.log(xes);
     } catch (err) {
       console.log(err);
     }
@@ -115,7 +117,7 @@ function AdminCreateNewItem() {
       setCategories([...categories, category]);
       setCategory('');
     } else {
-      alert('Preencha o campo');
+      console.log('Error while adding to array');
     }
   };
 
@@ -131,7 +133,6 @@ function AdminCreateNewItem() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, userInfo]);
 
-  console.log(item);
   useEffect(() => {
     if (item) {
       (async () => {
@@ -145,7 +146,6 @@ function AdminCreateNewItem() {
         setStorages(item.storages);
       })();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item]);
 
   return (
@@ -259,6 +259,7 @@ function AdminCreateNewItem() {
           />
         </div>
       </form>
+      {message && <Message type="error" value={message} />}
     </section>
   );
 }

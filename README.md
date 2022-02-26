@@ -35,3 +35,27 @@ Runs the app and server
 
 MdOutlineClear
 MdOutlineAdd
+MdTaskAlt
+MdSubject
+MdNightlightRound
+MdFace
+MdCode
+MdCheckCircleOutline
+MdOutlineStarBorderPurple500
+MdOutlineStarBorder
+MdOutlineStarHalf
+MdOutlineStarOutline
+MdOutlineStarPurple500
+MdOutlineStar
+MdOutlineSentimentSatisfied
+MdOutlineSentimentDissatisfied
+MdOutlineMoreHoriz
+MdOutlineMoreVert
+MdOutlineCheck
+MdOutlineArrowBackIosNew
+MdOutlineArrowBackIos
+MdOutlineArrowForwardIos
+MdOutlineLocalPhone
+
+MdOutlineWbSunny
+MdOutlineBedtime

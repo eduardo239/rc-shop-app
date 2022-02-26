@@ -17,17 +17,6 @@ function App() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    if (user) {
-      (async () => {
-        if (!userInfo.isAdmin) navigate('/');
-      })();
-    } else {
-      navigate('/');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, userInfo]);
-
-  useEffect(() => {
     let isMounted = true;
     (async () => {
       const {
@@ -39,6 +28,17 @@ function App() {
       isMounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      (async () => {
+        if (!userInfo.isAdmin) navigate('/');
+      })();
+    } else {
+      navigate('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, userInfo]);
 
   return (
     <section>

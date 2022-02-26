@@ -5,7 +5,7 @@ import { UserContext } from '../context/UserContext';
 import Search from './Search';
 import apiItem from '../api/item';
 import {
-  MdPersonOutline,
+  MdFace,
   MdOutlineHouse,
   MdShoppingCart,
   MdOutlineAdminPanelSettings,
@@ -13,11 +13,16 @@ import {
   MdOutlineAssignmentInd,
   MdOutlineSensorDoor,
   MdOutlineMenu,
+  MdOutlineWbSunny,
+  MdOutlineBedtime,
 } from 'react-icons/md';
+import { ItemContext } from '../context/ItemContext';
 
 function Menu() {
   const [term, setTerm] = useState('');
+  const [theme, setTheme] = useState('dark');
   const { user, setUser } = useContext(UserContext);
+  const { setSearchResults } = useContext(ItemContext);
 
   const navigate = useNavigate();
   const auth = getAuth();
@@ -42,9 +47,16 @@ function Menu() {
     if (x.length > 2) {
       // fetch data from api
       const response = await apiItem.getItemsByTerm(x);
+      setSearchResults(response.data.data);
 
       // set data to context
+    } else {
+      setSearchResults([]);
     }
+  };
+
+  const handleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
   return (
@@ -99,12 +111,21 @@ function Menu() {
               {user && (
                 <>
                   <li>
-                    <Link to={`/user/${user.uid}`}>
-                      <MdPersonOutline />
+                    <Link to="#" onClick={handleTheme}>
+                      {theme === 'dark' ? (
+                        <MdOutlineBedtime />
+                      ) : (
+                        <MdOutlineWbSunny />
+                      )}
                     </Link>
                   </li>
                   <li>
-                    <Link to="#" className="" onClick={logout}>
+                    <Link to={`/user/${user.uid}`}>
+                      <MdFace />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="#" onClick={logout}>
                       <MdOutlineSensorDoor />
                     </Link>
                   </li>
