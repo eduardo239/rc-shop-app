@@ -1,13 +1,12 @@
 import Button from '../form/Button';
-import apis from '../api';
 import apiItem from '../api/item';
-import { MdClose, MdOutlineSaveAlt } from 'react-icons/md';
+import { MdClose, MdLoop } from 'react-icons/md';
 import { useContext, useEffect, useState } from 'react';
 import Message from './Message';
 import { ItemContext } from '../context/ItemContext';
 
 function AdminTableItems() {
-  const { items, setItems } = useContext(ItemContext);
+  const { items, setItems, setItem } = useContext(ItemContext);
 
   const [error, setError] = useState('');
 
@@ -15,14 +14,16 @@ function AdminTableItems() {
     setError('');
 
     try {
-      const res = await apiItem.deleteItem(id);
+      await apiItem.deleteItem(id);
       setItems(items.filter((item) => item._id !== id));
     } catch (err) {
       setError(err.message);
     }
   };
 
-  const handleEdit = async (id, type) => {};
+  const handleEdit = async (item) => {
+    setItem(item);
+  };
 
   const convertDate = (date) => {
     const d = new Date(date);
@@ -77,8 +78,8 @@ function AdminTableItems() {
                 <td className="w-38">
                   <Button
                     icon
-                    value={<MdOutlineSaveAlt />}
-                    onClick={() => handleEdit(item._id)}
+                    value={<MdLoop />}
+                    onClick={() => handleEdit(item)}
                   />
                 </td>
               </tr>

@@ -1,7 +1,7 @@
 import Button from '../form/Button';
 import InputCheck from '../form/InputCheck';
 import apis from '../api';
-import { MdClose, MdOutlineSaveAlt } from 'react-icons/md';
+import { MdClose, MdLoop } from 'react-icons/md';
 
 function AdminTableUsers({ users }) {
   const handleDelete = async (id) => {
@@ -45,11 +45,7 @@ function AdminTableUsers({ users }) {
                   />
                 </td>
                 <td className="w-38">
-                  <Button
-                    icon
-                    value={<MdOutlineSaveAlt />}
-                    onClick={handleEdit}
-                  />
+                  <Button icon value={<MdLoop />} onClick={handleEdit} />
                 </td>
               </tr>
             ))}

@@ -9,15 +9,14 @@ export const getAllItems = () => api.get(`/products`);
 export const getItemById = (uid) => api.get(`/product/${uid}`);
 export const getItemsByTerm = (term) => api.get(`/search/${term}`);
 export const deleteItem = (id) => api.delete(`/delete-product/${id}`);
-
-// TODO:
-export const updateUser = (id, payload) => api.put(`/update/${id}`, payload);
+export const updateItem = (id, payload) =>
+  api.put(`/update-product/${id}`, payload);
 
 const apiItem = {
   createNewItem,
   getItemById,
   getAllItems,
-  updateUser,
+  updateItem,
   deleteItem,
   getItemsByTerm,
 };

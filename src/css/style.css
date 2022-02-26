@@ -218,6 +218,7 @@ button {
   outline: 0;
   border: 1px solid transparent;
   margin-right: 1px;
+  margin-bottom: 1px;
 }
 
 .btn {
@@ -265,9 +266,16 @@ button {
   width: 100%;
 }
 
-button:hover {
-  filter: brightness(120%);
+button:disabled {
+  border: 1px solid #999999;
+  background-color: #8d8d8d;
+  color: #666666;
 }
+
+button:disabled svg {
+  fill: #666666;
+}
+
 .btn-color-select,
 .btn-storage-select {
   height: 38px;

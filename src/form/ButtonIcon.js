@@ -1,4 +1,12 @@
-function ButtonIcon({ iconBefore, iconAfter, value, full, onClick, type }) {
+function ButtonIcon({
+  iconBefore,
+  iconAfter,
+  value,
+  full,
+  onClick,
+  type,
+  disabled,
+}) {
   return (
     <button
       className={`${
@@ -6,6 +14,7 @@ function ButtonIcon({ iconBefore, iconAfter, value, full, onClick, type }) {
       } btn-primary ${full ? 'btn-full' : ''}`}
       onClick={onClick}
       type={type}
+      disabled={disabled}
     >
       {iconBefore} {value} {iconAfter}
     </button>

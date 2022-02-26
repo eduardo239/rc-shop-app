@@ -64,14 +64,11 @@ const itemById = (req, res) => {
 };
 
 const deleteItem = (req, res) => {
-  console.log(req.params.id);
-  Item.findOneAndDelete({ _id: req.params.id }, (err, item) => {
+  Item.findByIdAndDelete(req.params.id, (err, item) => {
     if (err) {
       return res.status(400).json({ success: false, error: err });
     }
-    if (!item) {
-      return res.status(404).json({ success: false, error: `Item not found` });
-    }
+
     return res.status(200).json({ success: true, data: item });
   })
     .clone()
@@ -93,9 +90,14 @@ const updateItem = (req, res) => {
         message: `Item not found`,
       });
     }
+    item.categories = body.categories;
+    item.colors = body.colors;
+    item.description = body.description;
+    item.info = body.info;
     item.name = body.name;
-    item.price = body.price;
     item.poster = body.poster;
+    item.price = body.price;
+    item.storages = body.storages;
 
     item
       .save()
@@ -111,7 +113,7 @@ const updateItem = (req, res) => {
       .catch((err) => {
         return res.status(404).json({
           err,
-          message: `Item not updated@`,
+          message: `Item not updated!`,
         });
       });
   });

@@ -34,14 +34,11 @@ const orderNewItem = (req, res) => {
 };
 
 const deleteOrder = (req, res) => {
-  console.log(req.params.id);
-  Order.findOneAndDelete({ _id: req.params.id }, (err, item) => {
+  Order.findByIdAndDelete(req.params.id, (err, item) => {
     if (err) {
       return res.status(400).json({ success: false, error: err });
     }
-    if (!item) {
-      return res.status(404).json({ success: false, error: `Order not found` });
-    }
+
     return res.status(200).json({ success: true, data: item });
   })
     .clone()

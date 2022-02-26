@@ -5,6 +5,7 @@ import {
   MdOutlineSave,
   MdOutlineCleaningServices,
   MdOutlineAdd,
+  MdLoop,
 } from 'react-icons/md';
 import { useContext, useEffect, useState } from 'react';
 import Message from './Message';
@@ -17,7 +18,7 @@ import ButtonIcon from '../form/ButtonIcon';
 
 function AdminCreateNewItem() {
   const { user, userInfo } = useContext(UserContext);
-  const { setItems } = useContext(ItemContext);
+  const { setItems, item } = useContext(ItemContext);
   const navigate = useNavigate();
 
   const [name, setName] = useState('');
@@ -32,6 +33,7 @@ function AdminCreateNewItem() {
   const [color, setColor] = useState('#ffffff');
   const [colors, setColors] = useState([]);
   const [specs, setSpecs] = useState([]);
+  const [disabled, setDisabled] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,6 +59,30 @@ function AdminCreateNewItem() {
       //   const r = Object.keys(y).map((key) => [key, y[key]]);
     }
   };
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    try {
+      const payload = {
+        name,
+        poster,
+        price,
+        description,
+        info,
+        categories,
+        colors,
+        storages,
+      };
+      const xes = await apiItem.updateItem(item._id, payload);
+      const res = await apiItem.getAllItems();
+      setItems(res.data.data);
+      console.log(xes);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleReset = () => {
     setName('');
     setDescription('');
@@ -104,6 +130,24 @@ function AdminCreateNewItem() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, userInfo]);
+
+  console.log(item);
+  useEffect(() => {
+    if (item) {
+      (async () => {
+        setName(item.name);
+        setDescription(item.description);
+        setPrice(item.price);
+        setPoster(item.poster);
+        setInfo(item.info);
+        setCategories(item.categories);
+        setColors(item.colors);
+        setStorages(item.storages);
+      })();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [item]);
+
   return (
     <section>
       <h4>Novo produto</h4>
@@ -206,6 +250,12 @@ function AdminCreateNewItem() {
             type="submit"
             value="Cadastrar"
             onClick={handleSubmit}
+          />
+          <ButtonIcon
+            iconAfter={<MdLoop />}
+            type="submit"
+            value="Atualizar"
+            onClick={handleUpdate}
           />
         </div>
       </form>
