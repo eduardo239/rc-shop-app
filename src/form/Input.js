@@ -11,6 +11,7 @@ function Input({ type, placeholder, value, label, onChange }) {
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        name={label}
       />
     </>
   );

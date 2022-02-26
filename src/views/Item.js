@@ -1,15 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { OrderContext } from '../context/OrderContext';
+import { MdOutlineAttachMoney } from 'react-icons/md';
 import apiItem from '../api/item';
 import poster_default from '../assets/cel.png';
-import Button from '../form/Button';
-
+import ButtonIcon from '../form/ButtonIcon';
 function Item() {
+  const { order, setOrder } = useContext(OrderContext);
   const { id } = useParams();
+
   const [item, setItem] = useState({});
 
   const handleBuy = () => {
-    console.log('buying');
+    setOrder([...order, item]);
   };
 
   useEffect(() => {
@@ -62,7 +65,11 @@ function Item() {
           </div>
         </div>
 
-        <Button value="Comprar" onClick={handleBuy} />
+        <ButtonIcon
+          iconAfter={<MdOutlineAttachMoney />}
+          value="Comprar"
+          onClick={handleBuy}
+        />
       </div>
     </section>
   );

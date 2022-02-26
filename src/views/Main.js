@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import Menu from '../components/Menu';
 import SignIn from '../views/SignIn';
 import SignUp from '../views/SignUp';
@@ -13,16 +13,45 @@ import CartItems from '../components/CartItems';
 import CartAddress from '../components/CartAddress';
 import CartPayment from '../components/CartPayment';
 import Admin from '../admin';
+import { useContext } from 'react';
+import { ItemContext } from '../context/ItemContext';
 
 function Main() {
+  const { searchResults, setSearchResults } = useContext(ItemContext);
+
   return (
     <section>
       <div className="bg-primary my-20">
         <Menu />
       </div>
-      <section className="container">
+
+      <div className="relative">
+        {searchResults.length > 0 && (
+          <section className="search-results-wrapper">
+            <h4>Resultados</h4>
+            {searchResults.length > 0 && (
+              <ul className="search-results__list">
+                {searchResults.map((item) => (
+                  <li key={item._id}>
+                    <Link
+                      to={`/${item._id}`}
+                      className="justify-between w-100"
+                      onClick={() => setSearchResults([])}
+                    >
+                      <p>{item.name}</p>
+                      <p>{item.price}</p>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        )}
+      </div>
+
+      <div className="container">
         <div className="row">
-          <div className="col relative">
+          <div className="col">
             <Routes>
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
@@ -42,7 +71,7 @@ function Main() {
             </Routes>
           </div>
         </div>
-      </section>
+      </div>
     </section>
   );
 }

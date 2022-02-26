@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { UserContextContent } from './context/UserContext';
 import { ItemContextContent } from './context/ItemContext';
+import { OrderContextContent } from './context/OrderContext';
 
 import App from './App';
 
@@ -17,11 +18,13 @@ import './css/style.css';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <UserContextContent>
-        <ItemContextContent>
-          <App />
-        </ItemContextContent>
-      </UserContextContent>
+      <OrderContextContent>
+        <UserContextContent>
+          <ItemContextContent>
+            <App />
+          </ItemContextContent>
+        </UserContextContent>
+      </OrderContextContent>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import api from '../api';
 import Input from '../form/Input';
-import Button from '../form/Button';
 import Message from '../components/Message';
 import apis from '../api';
+import ButtonIcon from '../form/ButtonIcon';
+import { MdOutlineBorderColor } from 'react-icons/md';
 
 function SignUp() {
   const { user } = useContext(UserContext);
@@ -96,7 +97,11 @@ function SignUp() {
           onChange={(e) => setPassword2(e.target.value)}
           value={password2}
         />
-        <Button value="Registrar" onClick={handleSubmit} />
+        <ButtonIcon
+          iconAfter={<MdOutlineBorderColor />}
+          value="Registrar"
+          onClick={handleSubmit}
+        />
         {error && <Message type="error" value={error} />}
       </form>
     </section>

@@ -4,8 +4,9 @@ import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { isEmpty } from '../helper';
 import Input from '../form/Input';
-import Button from '../form/Button';
 import Message from '../components/Message';
+import ButtonIcon from '../form/ButtonIcon';
+import { MdVpnKey } from 'react-icons/md';
 
 function SignIn() {
   const { setUser, user } = useContext(UserContext);
@@ -52,7 +53,11 @@ function SignIn() {
           value={password}
         />
 
-        <Button value="Login" onClick={handleSubmit} />
+        <ButtonIcon
+          iconAfter={<MdVpnKey />}
+          value="Login"
+          onClick={handleSubmit}
+        />
 
         {error && <Message type="error" value={error} />}
       </form>
