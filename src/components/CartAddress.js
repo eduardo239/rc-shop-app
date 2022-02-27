@@ -6,12 +6,14 @@ import axios from 'axios';
 import Input from '../form/Input';
 import ButtonIcon from '../form/ButtonIcon';
 import CartTableAddress from './CartTableAddress';
+import Message from './Message';
 
 function CartAddress() {
   const { setAddress, address, order, setOrder } = useContext(OrderContext);
 
   let navigate = useNavigate();
 
+  const [message, setMessage] = useState('');
   const [zipcode, setZipcode] = useState(
     address?.zipcode ? address.zipcode : ''
   );
@@ -30,6 +32,7 @@ function CartAddress() {
 
   const handleZipcode = async (zipcode) => {
     setZipcode(zipcode);
+    setMessage('');
 
     if (zipcode.length === 8) {
       const response = await axios.get(
@@ -37,14 +40,19 @@ function CartAddress() {
       );
 
       const data = await response.data;
-      setA({
-        street: data.logradouro,
-        district: data.bairro,
-        city: data.localidade,
-        state: data.uf,
-        country: data.ibge,
-        zipcode: data.cep.replace('-', ''),
-      });
+      console.log(data.erro);
+      if (data.erro) {
+        setMessage('CEP inválido');
+      } else {
+        setA({
+          street: data.logradouro,
+          district: data.bairro,
+          city: data.localidade,
+          state: data.uf,
+          country: data.ibge,
+          zipcode: data.cep.replace('-', ''),
+        });
+      }
     }
   };
 
@@ -89,6 +97,7 @@ function CartAddress() {
             type="number"
             value={zipcode}
             onChange={(e) => handleZipcode(e.target.value)}
+            placeholder="Digite o CEP, somente números"
           ></Input>
         </div>
         <div>
@@ -97,6 +106,7 @@ function CartAddress() {
             type="number"
             value={number}
             onChange={(e) => handleNumber(e.target.value)}
+            placeholder="Digite o número do local"
           ></Input>
         </div>
         <div>
@@ -105,9 +115,14 @@ function CartAddress() {
             type="text"
             value={comp}
             onChange={(e) => handleComplement(e.target.value)}
+            placeholder="Digite o complemento do local, se houver"
           ></Input>
         </div>
       </form>
+
+      <div className="mb-20">
+        {message && <Message type="error" value={message} />}
+      </div>
 
       <div className="mb-10">
         <CartTableAddress address={a} />

@@ -19,6 +19,7 @@ function InputRadio({
           value={value}
           onChange={onChange}
           name={name}
+          checked={checked}
         />
         <label className="form-control__radio-label" htmlFor={id}>
           {value}

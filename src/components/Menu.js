@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from 'firebase/auth';
 import { useContext, useState } from 'react';
 import { UserContext } from '../context/UserContext';
@@ -12,17 +12,17 @@ import {
   MdOutlineAssignment,
   MdOutlineAssignmentInd,
   MdOutlineSensorDoor,
-  MdOutlineMenu,
   MdOutlineWbSunny,
   MdOutlineBedtime,
 } from 'react-icons/md';
 import { ItemContext } from '../context/ItemContext';
 
 function Menu() {
+  const { user, setUser, setUserInfo } = useContext(UserContext);
+  const { setSearchResults } = useContext(ItemContext);
+
   const [term, setTerm] = useState('');
   const [theme, setTheme] = useState('dark');
-  const { user, setUser } = useContext(UserContext);
-  const { setSearchResults } = useContext(ItemContext);
 
   const navigate = useNavigate();
   const auth = getAuth();
@@ -32,6 +32,7 @@ function Menu() {
     signOut(auth)
       .then(() => {
         setUser(null);
+        setUserInfo(null);
       })
       .catch((err) => {
         console.error(err.message);
@@ -66,24 +67,34 @@ function Menu() {
           <div className="justify-between align-items-center">
             <ul className="menu">
               <li>
-                <Link to="/">
+                <NavLink
+                  className={(navData) =>
+                    navData.isActive ? 'link-active' : ''
+                  }
+                  to="/"
+                >
                   <MdOutlineHouse />
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link to="/cart">
+                <NavLink
+                  className={(navData) =>
+                    navData.isActive ? 'link-active' : ''
+                  }
+                  to="/cart/items"
+                >
                   <MdShoppingCart />
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link to="/admin">
+                <NavLink
+                  className={(navData) =>
+                    navData.isActive ? 'link-active' : ''
+                  }
+                  to="/admin"
+                >
                   <MdOutlineAdminPanelSettings />
-                </Link>
-              </li>
-              <li>
-                <Link to="/">
-                  <MdOutlineMenu />
-                </Link>
+                </NavLink>
               </li>
             </ul>
 
@@ -97,37 +108,52 @@ function Menu() {
               {!user && (
                 <>
                   <li>
-                    <Link to="/signin">
+                    <NavLink
+                      className={(navData) =>
+                        navData.isActive ? 'link-active' : ''
+                      }
+                      to="/signin"
+                    >
                       <MdOutlineAssignmentInd />
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link to="/signup">
+                    <NavLink
+                      className={(navData) =>
+                        navData.isActive ? 'link-active' : ''
+                      }
+                      to="/signup"
+                    >
                       <MdOutlineAssignment />
-                    </Link>
+                    </NavLink>
                   </li>
                 </>
               )}
               {user && (
                 <>
                   <li>
-                    <Link to="#" onClick={handleTheme}>
+                    <NavLink to="#" onClick={handleTheme}>
                       {theme === 'dark' ? (
                         <MdOutlineBedtime />
                       ) : (
                         <MdOutlineWbSunny />
                       )}
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link to={`/user/${user.uid}`}>
+                    <NavLink
+                      className={(navData) =>
+                        navData.isActive ? 'link-active' : ''
+                      }
+                      to={`/user/${user.uid}`}
+                    >
                       <MdFace />
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link to="#" onClick={logout}>
+                    <NavLink to="#" onClick={logout}>
                       <MdOutlineSensorDoor />
-                    </Link>
+                    </NavLink>
                   </li>
                 </>
               )}

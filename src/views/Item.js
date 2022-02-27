@@ -1,7 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { OrderContext } from '../context/OrderContext';
-import { MdOutlineAdd, MdOutlineAttachMoney } from 'react-icons/md';
+import {
+  MdOutlineAdd,
+  MdOutlineAttachMoney,
+  MdOutlineStarBorderPurple500,
+} from 'react-icons/md';
 import { UserContext } from '../context/UserContext';
 import apiItem from '../api/item';
 import poster_default from '../assets/cel.png';
@@ -9,6 +13,7 @@ import ButtonIcon from '../form/ButtonIcon';
 import Input from '../form/Input';
 import InputAdd from '../form/InputAdd';
 import Message from '../components/Message';
+import { convertToCurrency } from '../helper';
 
 const off = '.10';
 const PROMO_10 = 'PROMO10';
@@ -23,6 +28,8 @@ function Item() {
   const [promoValid, setPromoValid] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState('');
+  const [selectedColor, setSelectedColor] = useState('');
+  const [selectedStorage, setSelectedStorage] = useState('');
 
   const handleBuy = () => {
     if (userInfo) {
@@ -40,8 +47,8 @@ function Item() {
               (promoValid ? item.price - item.price * off : item.price) *
               parseFloat(quantity),
             name: item.name,
-            color: item.colors[0],
-            storage: item.storages[0],
+            color: selectedColor,
+            storage: selectedStorage,
           },
         ],
       });
@@ -61,6 +68,12 @@ function Item() {
     }
   };
 
+  const handleAddToFavorite = async () => {
+    if (userInfo) {
+      console.log(1);
+    }
+  };
+
   useEffect(() => {
     let isMounted = true;
     (async () => {
@@ -75,7 +88,16 @@ function Item() {
   return (
     <section className="item-wrapper">
       <div className="item-wrapper__poster">
-        <h4>Title: {item.name}</h4>
+        <div className="item-wrapper__title">
+          <h4>Title: {item.name}</h4>
+          <p>{convertToCurrency(item.price)}</p>
+        </div>
+
+        <div className="item-wrapper__favorite">
+          <NavLink to="#" onClick={handleAddToFavorite}>
+            <MdOutlineStarBorderPurple500 />
+          </NavLink>
+        </div>
 
         <img src={item.poster ? item.poster : poster_default} alt="" />
       </div>
@@ -90,6 +112,7 @@ function Item() {
                   key={color}
                   style={{ backgroundColor: color }}
                   className="btn-color-select"
+                  onClick={() => setSelectedColor(color)}
                 ></button>
               ))
             ) : (
@@ -100,7 +123,11 @@ function Item() {
           <div className="item-wrapper__info-color mb-20">
             {item?.storages?.length > 0 ? (
               item.storages.map((storage) => (
-                <button className="btn-storage-select" key={storage}>
+                <button
+                  className="btn-storage-select"
+                  key={storage}
+                  onClick={() => setSelectedStorage(storage)}
+                >
                   {storage} GB
                 </button>
               ))
@@ -119,6 +146,12 @@ function Item() {
             value={quantity}
           />
         </div>
+
+        <div className="mb-10">
+          <h6>Preço</h6>
+          <h4>{convertToCurrency(item.price)}</h4>
+        </div>
+
         <div className="mb-10">
           <InputAdd
             label="Categorias"

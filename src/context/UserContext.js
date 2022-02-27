@@ -11,7 +11,8 @@ const UserContextContent = ({ children }) => {
   const [userAddress, setUserAddress] = useState(null);
   const [userPayment, setUserPayment] = useState(null);
   const [userId, setUserId] = useState(null);
-
+  console.log(user);
+  console.log(userInfo);
   return (
     <UserProvider
       value={{

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 
 function UserHome() {
-  const { user, userInfo } = useContext(UserContext);
+  const { userInfo } = useContext(UserContext);
 
   return (
     <section>
@@ -11,11 +11,9 @@ function UserHome() {
       </div>
 
       <div>
-        <h4>User</h4>
-        <p>{userInfo.username}</p>
+        <h5>User: {userInfo?.username}</h5>
 
-        <h4>Email</h4>
-        <p>{userInfo.email}</p>
+        <h5>Email: {userInfo?.email}</h5>
       </div>
     </section>
   );

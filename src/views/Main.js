@@ -15,6 +15,7 @@ import CartPayment from '../components/CartPayment';
 import Admin from '../admin';
 import { useContext } from 'react';
 import { ItemContext } from '../context/ItemContext';
+import { convertToCurrency } from '../helper';
 
 function Main() {
   const { searchResults, setSearchResults } = useContext(ItemContext);
@@ -39,7 +40,7 @@ function Main() {
                       onClick={() => setSearchResults([])}
                     >
                       <p>{item.name}</p>
-                      <p>{item.price}</p>
+                      <p>{convertToCurrency(item.price)}</p>
                     </Link>
                   </li>
                 ))}
@@ -56,14 +57,14 @@ function Main() {
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/cart" element={<Cart />}>
-                <Route path="" element={<CartItems />} />
+                <Route path="items" element={<CartItems />} />
                 <Route path="address" element={<CartAddress />} />
                 <Route path="payment" element={<CartPayment />} />
               </Route>
               <Route path="/" exact element={<Items />} />
               <Route path="/:id" element={<Item />} />
               <Route path="/user/:id" element={<UserWrapper />}>
-                <Route path="" element={<UserHome />} />
+                <Route path="home" element={<UserHome />} />
                 <Route path="orders" element={<UserOrders />} />
                 <Route path="edit" element={<UserEdit />} />
               </Route>

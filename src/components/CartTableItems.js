@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { MdPalette } from 'react-icons/md';
 import { OrderContext } from '../context/OrderContext';
 import Input from '../form/Input';
 import { convertToCurrency } from '../helper';
@@ -20,7 +21,9 @@ function CartTableItems({ order }) {
       <thead>
         <tr>
           <th>Nome</th>
-          <th>Cor</th>
+          <th className="w-38">
+            <MdPalette />
+          </th>
           <th>Armazenamento</th>
           <th>Quantidade</th>
           <th>Preço</th>
@@ -31,15 +34,8 @@ function CartTableItems({ order }) {
           order.items.map((item, index) => (
             <tr key={index}>
               <td>{item.name}</td>
-              <td>
-                <div
-                  style={{
-                    height: '30px',
-                    width: '30px',
-                    display: 'block',
-                    background: item.color,
-                  }}
-                ></div>
+              <td className="cart-table-items__color">
+                <div style={{ background: item.color }}></div>
               </td>
               <td>{item.storage} GB</td>
               <td>

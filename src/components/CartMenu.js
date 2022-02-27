@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   MdProductionQuantityLimits,
   MdLocationOn,
@@ -9,19 +9,28 @@ function CartMenu() {
   return (
     <ul className="menu menu__item">
       <li>
-        <Link to="/cart">
+        <NavLink
+          className={(navData) => (navData.isActive ? 'link-active' : '')}
+          to="/cart/items"
+        >
           <MdProductionQuantityLimits />
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link to="/cart/address">
+        <NavLink
+          className={(navData) => (navData.isActive ? 'link-active' : '')}
+          to="/cart/address"
+        >
           <MdLocationOn />
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link to="/cart/payment">
+        <NavLink
+          className={(navData) => (navData.isActive ? 'link-active' : '')}
+          to="/cart/payment"
+        >
           <MdOutlinePayment />
-        </Link>
+        </NavLink>
       </li>
     </ul>
   );

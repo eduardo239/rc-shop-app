@@ -92,7 +92,10 @@ const deleteUser = (req, res) => {
 };
 
 const updateUser = (req, res) => {
+  console.log(req.body);
+
   const body = req.body;
+
   if (isEmpty(req.body)) {
     return res.status(400).json({
       success: false,
@@ -100,7 +103,7 @@ const updateUser = (req, res) => {
     });
   }
 
-  User.findOne({ _id: req.params.id }, (err, user) => {
+  User.findOne({ uid: req.params.id }, (err, user) => {
     if (err) {
       return res.status(404).json({
         err,

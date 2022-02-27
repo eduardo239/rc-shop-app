@@ -1,27 +1,41 @@
 import Avatar from './Avatar';
 import random_avatar from '../assets/21.jpg';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 
 function UserMenu() {
-  const { user, userInfo } = useContext(UserContext);
+  const { userInfo } = useContext(UserContext);
+
   return (
     <section>
-      {/* component avatar */}
-
-      <Avatar url={userInfo.avatar ? userInfo.avatar : random_avatar} />
+      <Avatar url={userInfo?.avatar ? userInfo.avatar : random_avatar} />
       <div>
         <h4>User</h4>
         <ul>
           <li>
-            <Link to="/user/234234234234">User</Link>
+            <NavLink
+              className={(navData) => (navData.isActive ? 'link-active' : '')}
+              to={`/user/${userInfo?.uid}/home`}
+            >
+              User
+            </NavLink>
           </li>
           <li>
-            <Link to="/user/234234234234/edit">User Edit</Link>
+            <NavLink
+              className={(navData) => (navData.isActive ? 'link-active' : '')}
+              to={`/user/${userInfo?.uid}/edit`}
+            >
+              User Edit
+            </NavLink>
           </li>
           <li>
-            <Link to="/user/234234234234/orders">User Orders</Link>
+            <NavLink
+              className={(navData) => (navData.isActive ? 'link-active' : '')}
+              to={`/user/${userInfo?.uid}/orders`}
+            >
+              User Orders
+            </NavLink>
           </li>
         </ul>
       </div>

@@ -1,21 +1,24 @@
 import { useContext, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import InputRadio from '../form/InputRadio';
-import CartTableAddress from './CartTableAddress';
-import { MdNavigateNext, MdNavigateBefore, MdLoop } from 'react-icons/md';
-import ButtonIcon from '../form/ButtonIcon';
 import { OrderContext } from '../context/OrderContext';
-import QRCode from 'qrcode';
-import CartTableItems from './CartTableItems';
+import { useNavigate } from 'react-router-dom';
 import { convertToCurrency } from '../helper';
+import { MdNavigateNext, MdNavigateBefore, MdLoop } from 'react-icons/md';
+import CartTableAddress from './CartTableAddress';
+import CartTableItems from './CartTableItems';
+import ButtonIcon from '../form/ButtonIcon';
+import InputRadio from '../form/InputRadio';
+import QRCode from 'qrcode';
 
 function CartPayment() {
   let navigate = useNavigate();
+
   const { order, setOrder } = useContext(OrderContext);
   const qrCodeRef = useRef(null);
 
-  const [payment, setPayment] = useState('credit');
   const [urlCode, setUrlCode] = useState('');
+  const [payment, setPayment] = useState(
+    order?.payment?.type ? order.payment.type : ''
+  );
 
   const handlePayment = async () => {
     const payload = {
@@ -25,7 +28,7 @@ function CartPayment() {
     try {
       const qr = await QRCode.toDataURL(JSON.stringify(payload));
       setUrlCode(qr);
-      setOrder({ ...order, payment: payment });
+      setOrder({ ...order, payment: payload });
     } catch (err) {
       console.log(err);
     }
@@ -49,6 +52,7 @@ function CartPayment() {
               onChange={(e) => setPayment(e.target.value)}
               value={`PIX`}
               name="payment"
+              checked={payment === 'PIX'}
             />
           </div>
           <div>
@@ -58,6 +62,7 @@ function CartPayment() {
               onChange={(e) => setPayment(e.target.value)}
               value={`Cartão de Crédito`}
               name="payment"
+              checked={payment === 'Cartão de Crédito'}
             />
           </div>
           <div>
@@ -67,6 +72,7 @@ function CartPayment() {
               onChange={(e) => setPayment(e.target.value)}
               value={`Boleto`}
               name="payment"
+              checked={payment === 'Boleto'}
             />
           </div>
         </form>
