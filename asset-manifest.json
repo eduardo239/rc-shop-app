@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/rc-shop-app/static/css/main.f2531335.css",
+    "main.js": "/rc-shop-app/static/js/main.37fd6349.js",
+    "static/media/cel.png": "/rc-shop-app/static/media/cel.2226d48bbd5014a8cc9a.png",
+    "static/media/card_img.jpg": "/rc-shop-app/static/media/card_img.56167b33e7fc70d6d1fb.jpg",
+    "index.html": "/rc-shop-app/index.html",
+    "main.f2531335.css.map": "/rc-shop-app/static/css/main.f2531335.css.map",
+    "main.37fd6349.js.map": "/rc-shop-app/static/js/main.37fd6349.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f2531335.css",
+    "static/js/main.37fd6349.js"
+  ]
+}
