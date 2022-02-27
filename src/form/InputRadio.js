@@ -1,26 +1,30 @@
 function InputRadio({
-  id,
   placeholder,
   value,
   onChange,
-  label,
+  groupLabel,
   name,
   checked,
+  id,
 }) {
   return (
-    <div className="form-radio__wrapper">
-      <input
-        className="form-radio"
-        type="radio"
-        id={id}
-        placeholder={placeholder}
-        value={value}
-        name={name}
-        defaultChecked={checked}
-        onChange={onChange}
-      />
-      <label htmlFor={id}>{label}</label>
-    </div>
+    <>
+      <label className="form-control__label">{groupLabel}</label>
+      <div className="form-control__radio mb-5">
+        <input
+          id={id}
+          className="form-control"
+          type="radio"
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          name={name}
+        />
+        <label className="form-control__radio-label" htmlFor={id}>
+          {value}
+        </label>
+      </div>
+    </>
   );
 }
 

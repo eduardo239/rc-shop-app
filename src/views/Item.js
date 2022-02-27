@@ -1,19 +1,28 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { OrderContext } from '../context/OrderContext';
-import { MdOutlineAttachMoney } from 'react-icons/md';
+import { MdOutlineAdd, MdOutlineAttachMoney } from 'react-icons/md';
+import { UserContext } from '../context/UserContext';
 import apiItem from '../api/item';
 import poster_default from '../assets/cel.png';
 import ButtonIcon from '../form/ButtonIcon';
-import { UserContext } from '../context/UserContext';
 import Input from '../form/Input';
+import InputAdd from '../form/InputAdd';
+import Message from '../components/Message';
+
+const off = '.10';
+const PROMO_10 = 'PROMO10';
+
 function Item() {
   const { order, setOrder } = useContext(OrderContext);
   const { userInfo } = useContext(UserContext);
   const { id } = useParams();
 
   const [item, setItem] = useState({});
+  const [promo, setPromo] = useState('');
+  const [promoValid, setPromoValid] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [message, setMessage] = useState('');
 
   const handleBuy = () => {
     if (userInfo) {
@@ -24,10 +33,12 @@ function Item() {
           ...order.items,
           {
             itemId: item._id,
-            price: item.price,
-            promo: '',
+            price: promoValid ? item.price - item.price * off : item.price,
+            promo: promoValid ? 'promo' : '',
             quantity: parseFloat(quantity),
-            total: item.price * parseFloat(quantity),
+            total:
+              (promoValid ? item.price - item.price * off : item.price) *
+              parseFloat(quantity),
             name: item.name,
             color: item.colors[0],
             storage: item.storages[0],
@@ -36,6 +47,17 @@ function Item() {
       });
     } else {
       alert('Para comprar é necessário estar logado');
+    }
+  };
+
+  const handlePromoCode = async (promo) => {
+    setPromo(promo);
+    if (promo === PROMO_10) {
+      setPromoValid(true);
+      setMessage('Promoção de 10% aplicada');
+    } else {
+      setPromoValid(false);
+      setMessage('Código inválido');
     }
   };
 
@@ -96,6 +118,21 @@ function Item() {
             onChange={(e) => setQuantity(e.target.value)}
             value={quantity}
           />
+        </div>
+        <div className="mb-10">
+          <InputAdd
+            label="Categorias"
+            type="text"
+            placeholder="PROMO CODE"
+            onChange={(e) => setPromo(e.target.value)}
+            value={promo}
+            buttonValue={<MdOutlineAdd />}
+            onButtonClick={(e) => handlePromoCode(promo)}
+          />
+        </div>
+
+        <div className="mb-10">
+          {message && <Message type="error" value={message} />}
         </div>
 
         <ButtonIcon

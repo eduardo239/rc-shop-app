@@ -59,3 +59,20 @@ MdOutlineLocalPhone
 
 MdOutlineWbSunny
 MdOutlineBedtime
+
+MdHighlightOff
+MdInfoOutline
+
+MdLockOutline
+MdErrorOutline
+
+MdMailOutline
+MdContentCopy
+
+MdClear
+
+MdRadioButtonChecked
+MdRadioButtonUnchecked
+
+MdOutlineCheckBoxOutlineBlank
+MdOutlineCheckBox

@@ -3,11 +3,11 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;1,400&display=swap');
 
 :root {
-  --color-primary: #519872;
+  --color-primary: #00a8cc;
   --color-secondary: #f5f5f5;
 
-  --color-primary-dark: #3d8860;
-  --color-primary-light: #6cb18c;
+  --color-primary-dark: #0188a7;
+  --color-primary-light: #26c5e9;
 
   --color-secondary-dark: #e0e0e0;
   --color-secondary-light: #f5f5f5;
@@ -147,8 +147,8 @@ input[type='checkbox'] {
   padding: 0;
   margin: 0;
   outline: none;
-  height: 20px;
-  width: 20px;
+  height: 16px;
+  width: 16px;
   margin-right: 10px;
 }
 
@@ -305,9 +305,11 @@ button:disabled svg {
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 .flex-1 {
   flex: 1;
 }
+
 .flex-center {
   display: flex;
   justify-content: center;
@@ -359,6 +361,17 @@ button:disabled svg {
   width: 1.25rem;
 }
 
+.form-control__radio {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  padding: 5px 10px;
+  border: 2px solid var(--color-dark-darker);
+  width: 100%;
+  outline: none;
+  display: flex;
+  align-items: center;
+}
+
 .form-control {
   margin-bottom: 0;
 }
@@ -371,6 +384,11 @@ button:disabled svg {
 .form-control__input-button {
   display: flex;
 }
+
+.form-control__radio-label {
+  width: 100%;
+}
+
 /* - - - - - - - - - - - menu - - - - - - - - - - -  */
 .menu {
   display: inline-flex;
@@ -587,4 +605,33 @@ button:disabled svg {
   border: 1px solid #045601;
   background: #131c13;
   color: green;
+}
+
+/* - - - - - - - - - - - qrcode - - - - - - - - - - -  */
+.qrcode-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.qrcode-wrapper > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qrcode {
+  width: 192px;
+  height: 192px;
+}
+
+.payment-wrapper {
+  display: flex;
+  justify-content: space-between;
+  background: var(--color-dark-darker);
+  padding: 0 1rem;
+  gap: 1rem;
+}
+
+.payment-wrapper > div {
+  flex: 1;
 }

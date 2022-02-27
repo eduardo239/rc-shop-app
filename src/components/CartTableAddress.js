@@ -1,3 +1,5 @@
+import { isEmpty } from '../helper';
+
 function CartTableAddress({ address }) {
   return (
     <table>
@@ -14,16 +16,22 @@ function CartTableAddress({ address }) {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>{address.street}</td>
-          <td>{address.number}</td>
-          <td>{address.complement}</td>
-          <td>{address.district}</td>
-          <td>{address.city}</td>
-          <td>{address.state}</td>
-          <td>{address.country}</td>
-          <td>{address.zipcode}</td>
-        </tr>
+        {!isEmpty(address) ? (
+          <tr>
+            <td>{address.street}</td>
+            <td>{address.number}</td>
+            <td>{address.complement}</td>
+            <td>{address.district}</td>
+            <td>{address.city}</td>
+            <td>{address.state}</td>
+            <td>{address.country}</td>
+            <td>{address.zipcode}</td>
+          </tr>
+        ) : (
+          <tr>
+            <td colSpan="8">Não há endereço cadastrado</td>
+          </tr>
+        )}
       </tbody>
     </table>
   );

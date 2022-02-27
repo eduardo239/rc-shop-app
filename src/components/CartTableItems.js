@@ -1,20 +1,20 @@
-import { useContext, useState } from 'react';
-import apiItem from '../api/item';
+import { useContext } from 'react';
 import { OrderContext } from '../context/OrderContext';
 import Input from '../form/Input';
-import { convertToCurrency, isEmpty } from '../helper';
+import { convertToCurrency } from '../helper';
 
 function CartTableItems({ order }) {
+  // eslint-disable-next-line no-unused-vars
   const { setOrder } = useContext(OrderContext);
 
   const handleQuantityChange = async (item, quantity) => {
     try {
-      // update item quantity
+      // TODO: update item quantity
     } catch (err) {
       console.log(err);
     }
   };
-  console.log(isEmpty(order));
+
   return (
     <table className="mb-10">
       <thead>
@@ -27,10 +27,9 @@ function CartTableItems({ order }) {
         </tr>
       </thead>
       <tbody>
-        {!isEmpty(order) ? (
+        {order?.items.length > 0 ? (
           order.items.map((item, index) => (
             <tr key={index}>
-              {console.log(item)}
               <td>{item.name}</td>
               <td>
                 <div
@@ -58,7 +57,7 @@ function CartTableItems({ order }) {
             <td colSpan="5">Não há itens no carrinho</td>
           </tr>
         )}
-        {order.length > 0 && (
+        {order.items.length > 0 && (
           <tr>
             <td colSpan="4">Total</td>
             <td>

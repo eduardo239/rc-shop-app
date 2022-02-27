@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { OrderContext } from '../context/OrderContext';
 import { MdNavigateNext, MdNavigateBefore } from 'react-icons/md';
 import CartTableItems from './CartTableItems';
@@ -10,17 +10,11 @@ function CartItems() {
 
   const { order } = useContext(OrderContext);
 
-  const [quantity, setQuantity] = useState(1);
-
   return (
     <section>
       <div>
         <h3>Itens</h3>
-        <CartTableItems
-          order={order}
-          quantity={quantity}
-          setQuantity={setQuantity}
-        />
+        <CartTableItems order={order} />
       </div>
       <div className="flex">
         <ButtonIcon
