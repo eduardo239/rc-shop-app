@@ -37,7 +37,7 @@ function SignIn() {
   }, [user]);
 
   return (
-    <section className="flex-center flex-middle">
+    <section className="flex-justify-center flex">
       <form className="sign-form">
         <h2>
           <span className="primary">L</span>ogin

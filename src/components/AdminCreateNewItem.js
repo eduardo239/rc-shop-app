@@ -32,7 +32,7 @@ function AdminCreateNewItem() {
   const [color, setColor] = useState('#ffffff');
   const [colors, setColors] = useState([]);
   const [specs, setSpecs] = useState([]);
-  const [disabled, setDisabled] = useState(true);
+
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {

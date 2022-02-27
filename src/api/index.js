@@ -10,6 +10,8 @@ export const deleteUser = (id) => api.delete(`/delete-user/${id}`);
 export const getUserByUsername = (username) => api.get(`/username/${username}`);
 export const updateUser = (id, payload) =>
   api.put(`/update-user/${id}`, payload);
+export const addToFavorite = (userId, itemId) =>
+  api.put(`/add-to-favorite/${userId}`, itemId);
 
 const apis = {
   createNewUser,
@@ -18,6 +20,7 @@ const apis = {
   updateUser,
   deleteUser,
   getUserByUsername,
+  addToFavorite,
 };
 
 export default apis;

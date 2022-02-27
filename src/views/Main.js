@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, Navigate, Route, Routes } from 'react-router-dom';
 import { useContext } from 'react';
 import { ItemContext } from '../context/ItemContext';
 import { convertToCurrency } from '../helper';
@@ -16,12 +16,14 @@ import Cart from './Cart';
 import CartItems from '../components/CartItems';
 import CartAddress from '../components/CartAddress';
 import CartPayment from '../components/CartPayment';
+import ItemNotFound from './ItemNotFound';
+import NotFound from './404';
 
 function Main() {
   const { searchResults, setSearchResults } = useContext(ItemContext);
 
   return (
-    <section>
+    <section className="flex-1 ">
       <div className="bg-primary my-20">
         <Menu />
       </div>
@@ -69,6 +71,9 @@ function Main() {
                 <Route path="edit" element={<UserEdit />} />
               </Route>
               <Route exact path="/admin" element={<Admin />} />
+              <Route path="*" element={<NotFound />} />
+              <Route path="/rc-app-shop" element={<Navigate to="/" />} />
+              <Route path="/product-not-found" element={<ItemNotFound />} />
             </Routes>
           </div>
         </div>

@@ -17,9 +17,9 @@ function Card({ id, title, content, alt, poster, colors, storages, specs }) {
       <p className="card--title">
         {title.length > 30 ? title.slice(0, 34) + '...' : title}
       </p>
-      <p className="card--content">
+      {/* <p className="card--content">
         {content.length > 90 ? content.slice(0, 90) + '...' : content}
-      </p>
+      </p> */}
       <Button full value="Comprar" onClick={handleClick} />
     </div>
   );

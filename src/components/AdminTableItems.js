@@ -1,7 +1,7 @@
 import Button from '../form/Button';
 import apiItem from '../api/item';
 import { MdClose, MdLoop } from 'react-icons/md';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import Message from './Message';
 import { ItemContext } from '../context/ItemContext';
 
@@ -29,18 +29,6 @@ function AdminTableItems() {
     const d = new Date(date);
     return d.toLocaleDateString();
   };
-
-  useEffect(() => {
-    let isMounted = true;
-    (async () => {
-      setError('');
-      const response = await apiItem.getAllItems();
-      if (isMounted) setItems(response.data.data);
-    })();
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   return (
     <section>

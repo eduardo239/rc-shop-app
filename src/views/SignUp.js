@@ -70,7 +70,7 @@ function SignUp() {
   }, [user]);
 
   return (
-    <section className="flex-center flex-middle">
+    <section className="flex-justify-center flex">
       <form className="sign-form">
         <h2>
           <span className="primary">R</span>egistro

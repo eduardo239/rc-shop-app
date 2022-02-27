@@ -4,6 +4,7 @@ import { UserContext } from './context/UserContext';
 import Main from './views/Main';
 // import { auth } from './firebase/firebase';
 import apis from './api';
+import Footer from './components/Footer';
 
 function App() {
   const { user, setUser, setUserId, setUserInfo } = useContext(UserContext);
@@ -45,8 +46,9 @@ function App() {
   }, [user, setUserInfo]);
 
   return (
-    <section>
+    <section className="flex flex-column mh-100vh">
       <Main />
+      <Footer />
     </section>
   );
 }

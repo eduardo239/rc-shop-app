@@ -132,7 +132,7 @@ function CartAddress() {
         <ButtonIcon
           value="Voltar"
           iconAfter={<MdNavigateBefore />}
-          onClick={() => navigate(`/cart`)}
+          onClick={() => navigate(`/cart/items`)}
         />
         <ButtonIcon
           value="Próximo"

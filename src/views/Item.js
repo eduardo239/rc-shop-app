@@ -1,19 +1,20 @@
 import { useContext, useEffect, useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { OrderContext } from '../context/OrderContext';
+import { UserContext } from '../context/UserContext';
+import { convertToCurrency } from '../helper';
 import {
   MdOutlineAdd,
   MdOutlineAttachMoney,
   MdOutlineStarBorderPurple500,
 } from 'react-icons/md';
-import { UserContext } from '../context/UserContext';
 import apiItem from '../api/item';
 import poster_default from '../assets/cel.png';
 import ButtonIcon from '../form/ButtonIcon';
 import Input from '../form/Input';
 import InputAdd from '../form/InputAdd';
 import Message from '../components/Message';
-import { convertToCurrency } from '../helper';
+import apis from '../api';
 
 const off = '.10';
 const PROMO_10 = 'PROMO10';
@@ -22,6 +23,7 @@ function Item() {
   const { order, setOrder } = useContext(OrderContext);
   const { userInfo } = useContext(UserContext);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [item, setItem] = useState({});
   const [promo, setPromo] = useState('');
@@ -70,7 +72,19 @@ function Item() {
 
   const handleAddToFavorite = async () => {
     if (userInfo) {
-      console.log(1);
+      try {
+        const payload = {
+          itemId: item._id,
+        };
+        const response = await apis.addToFavorite(userInfo.uid, payload);
+        if (response.status === 200) {
+          setMessage('Item adicionado aos favoritos');
+        }
+      } catch (err) {
+        console.log(err.message);
+      }
+    } else {
+      alert('Para adicionar aos favoritos é necessário estar logado');
     }
   };
 
@@ -78,8 +92,14 @@ function Item() {
     let isMounted = true;
     (async () => {
       if (id) {
-        const response = await apiItem.getItemById(id);
-        if (isMounted) setItem(response.data.data);
+        try {
+          const response = await apiItem.getItemById(id);
+
+          if (isMounted) setItem(response.data.data);
+        } catch (error) {
+          console.log(error.message);
+          navigate('/product-not-found');
+        }
       }
     })();
     return () => (isMounted = false);
@@ -94,7 +114,7 @@ function Item() {
         </div>
 
         <div className="item-wrapper__favorite">
-          <NavLink to="#" onClick={handleAddToFavorite}>
+          <NavLink to="#" onClick={() => handleAddToFavorite(item._id)}>
             <MdOutlineStarBorderPurple500 />
           </NavLink>
         </div>

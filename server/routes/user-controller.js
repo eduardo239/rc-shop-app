@@ -1,5 +1,6 @@
 const { isEmpty } = require('../helper');
 const User = require('../models/User');
+const Item = require('../models/item');
 
 const newUser = (req, res) => {
   const body = req.body;
@@ -124,7 +125,6 @@ const updateUser = (req, res) => {
           item: user,
         });
       })
-
       .catch((err) => {
         return res.status(404).json({
           err,
@@ -134,6 +134,49 @@ const updateUser = (req, res) => {
   });
 };
 
+const addToFavorite = (req, res) => {
+  Item.findById(req.body.itemId, (err, item) => {
+    if (err) {
+      return res.status(400).json({ success: false, error: err });
+    }
+
+    if (!item) {
+      return res.status(404).json({ success: false, error: `User not found` });
+    }
+
+    if (!err && item) {
+      User.findOne({ uid: req.params.id }, (err, user) => {
+        if (err) {
+          return res.status(400).json({ success: false, error: err });
+        }
+
+        if (!user) {
+          return res
+            .status(404)
+            .json({ success: false, error: `User not found` });
+        }
+
+        const contain = user.favorites_id.includes(item._id);
+        if (!contain) {
+          user.favorites_id.push(item._id);
+          user.save();
+          return res.status(200).json({ success: true, data: user });
+        } else {
+          return res.status(200).json({
+            success: false,
+            data: user,
+            error: 'Item already in the array',
+          });
+        }
+      })
+        .clone()
+        .catch((err) => console.error(err));
+    }
+  })
+    .clone()
+    .catch((err) => console.error(err));
+};
+
 module.exports = {
   newUser,
   allUsers,
@@ -141,4 +184,5 @@ module.exports = {
   userById,
   updateUser,
   userByUsername,
+  addToFavorite,
 };

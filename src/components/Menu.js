@@ -63,7 +63,7 @@ function Menu() {
       <div className="row">
         <div className="col">
           <div
-            className="justify-between align-items-center"
+            className="flex flex-justify-between flex-align-center"
             style={{ height: '42.5px' }}
           >
             <ul className="menu">
