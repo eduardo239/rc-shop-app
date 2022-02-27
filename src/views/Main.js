@@ -1,4 +1,8 @@
 import { Link, Route, Routes } from 'react-router-dom';
+import { useContext } from 'react';
+import { ItemContext } from '../context/ItemContext';
+import { convertToCurrency } from '../helper';
+import Admin from '../admin';
 import Menu from '../components/Menu';
 import SignIn from '../views/SignIn';
 import SignUp from '../views/SignUp';
@@ -12,10 +16,6 @@ import Cart from './Cart';
 import CartItems from '../components/CartItems';
 import CartAddress from '../components/CartAddress';
 import CartPayment from '../components/CartPayment';
-import Admin from '../admin';
-import { useContext } from 'react';
-import { ItemContext } from '../context/ItemContext';
-import { convertToCurrency } from '../helper';
 
 function Main() {
   const { searchResults, setSearchResults } = useContext(ItemContext);

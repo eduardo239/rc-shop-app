@@ -109,6 +109,10 @@ a:focus {
   text-decoration: none;
 }
 
+.primary {
+  color: var(--color-primary);
+}
+
 img {
   display: block;
   max-width: 100%;

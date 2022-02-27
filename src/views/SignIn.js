@@ -39,7 +39,9 @@ function SignIn() {
   return (
     <section className="flex-center flex-middle">
       <form className="sign-form">
-        <h2>Login</h2>
+        <h2>
+          <span className="primary">L</span>ogin
+        </h2>
         <Input
           label="Email"
           type="email"

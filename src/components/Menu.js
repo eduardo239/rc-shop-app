@@ -46,11 +46,8 @@ function Menu() {
   const handleSearch = async (x) => {
     setTerm(x);
     if (x.length > 2) {
-      // fetch data from api
       const response = await apiItem.getItemsByTerm(x);
       setSearchResults(response.data.data);
-
-      // set data to context
     } else {
       setSearchResults([]);
     }
@@ -60,11 +57,15 @@ function Menu() {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
+  // 42.5
   return (
     <div className="container">
       <div className="row">
         <div className="col">
-          <div className="justify-between align-items-center">
+          <div
+            className="justify-between align-items-center"
+            style={{ height: '42.5px' }}
+          >
             <ul className="menu">
               <li>
                 <NavLink
@@ -98,12 +99,12 @@ function Menu() {
               </li>
             </ul>
 
-            {user && (
-              <Search
-                value={term}
-                onChange={(e) => handleSearch(e.target.value)}
-              />
-            )}
+            <Search
+              value={term}
+              onChange={(e) => handleSearch(e.target.value)}
+              placeholder="Nome do produto ..."
+            />
+
             <ul className="menu">
               {!user && (
                 <>

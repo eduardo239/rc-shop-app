@@ -1,5 +1,5 @@
 import { MdSearch } from 'react-icons/md';
-function Search({ value, onChange }) {
+function Search({ value, placeholder, onChange }) {
   return (
     <div className="search-wrapper">
       <input
@@ -7,6 +7,7 @@ function Search({ value, onChange }) {
         type="search"
         value={value}
         onChange={onChange}
+        placeholder={placeholder}
       />
       <MdSearch />
     </div>

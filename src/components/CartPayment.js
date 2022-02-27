@@ -41,9 +41,9 @@ function CartPayment() {
   return (
     <section>
       <div className="mb-20">
-        <h2>Pagamento</h2>
+        <h3>Pagamento</h3>
 
-        <h4>Método de pagamento</h4>
+        <h5>Método de pagamento</h5>
         <form className="sign-form-2">
           <div>
             <InputRadio
@@ -79,7 +79,7 @@ function CartPayment() {
       </div>
 
       <div className="mb-20">
-        <h4>Produtos</h4>
+        <h5>Produtos</h5>
         {order ? (
           <CartTableItems order={order} />
         ) : (
@@ -88,12 +88,12 @@ function CartPayment() {
       </div>
 
       <div className="mb-20">
-        <h4>Endereço</h4>
+        <h5>Endereço</h5>
         <CartTableAddress address={order.address} />
       </div>
 
       <div className="mb-20">
-        <h4>Resumo</h4>
+        <h5>Resumo</h5>
         <div className="payment-wrapper">
           <div>
             <h5>Subtotal</h5>

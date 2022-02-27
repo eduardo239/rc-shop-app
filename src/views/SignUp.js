@@ -72,7 +72,9 @@ function SignUp() {
   return (
     <section className="flex-center flex-middle">
       <form className="sign-form">
-        <h2>Registro</h2>
+        <h2>
+          <span className="primary">R</span>egistro
+        </h2>
         <Input
           label="Name"
           type="text"
