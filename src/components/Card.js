@@ -12,12 +12,12 @@ function Card({ id, title, content, alt, poster, colors, storages, specs }) {
   return (
     <div className="card">
       <Link to={`/${id}`}>
-        <img className="card--img" src={poster} alt={alt} />
+        <img className="card-img" src={poster} alt={alt} />
       </Link>
-      <p className="card--title">
+      <p className="card-title">
         {title.length > 30 ? title.slice(0, 34) + '...' : title}
       </p>
-      {/* <p className="card--content">
+      {/* <p className="card-content">
         {content.length > 90 ? content.slice(0, 90) + '...' : content}
       </p> */}
       <Button full value="Comprar" onClick={handleClick} />

@@ -11,5 +11,7 @@ router.delete('/delete-user/:id', UserController.deleteUser);
 router.put('/update-user/:id', UserController.updateUser);
 router.get('/username/:username', UserController.userByUsername);
 router.put('/add-to-favorite/:id', UserController.addToFavorite);
+router.delete('/remove-from-favorite/:id', UserController.removeFromFavorite);
+router.get('/user-favorites/:id', UserController.getUserFavorites);
 
 module.exports = router;

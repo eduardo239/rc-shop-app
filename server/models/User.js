@@ -9,7 +9,7 @@ const User = new Schema(
     avatar: { type: String, required: false },
     email: { type: String, required: true, unique: true },
     isAdmin: { type: Boolean, required: true, default: false },
-    favorites_id: [{ type: String, required: true }],
+    favorites_id: [{ type: Schema.Types.ObjectId, ref: 'Item' }],
   },
   { timestamps: true }
 );

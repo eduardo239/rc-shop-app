@@ -18,7 +18,7 @@ function UserMenu() {
               className={(navData) => (navData.isActive ? 'link-active' : '')}
               to={`/user/${userInfo?.uid}/home`}
             >
-              User
+              Home
             </NavLink>
           </li>
           <li>
@@ -26,7 +26,7 @@ function UserMenu() {
               className={(navData) => (navData.isActive ? 'link-active' : '')}
               to={`/user/${userInfo?.uid}/edit`}
             >
-              User Edit
+              Editar
             </NavLink>
           </li>
           <li>
@@ -34,7 +34,15 @@ function UserMenu() {
               className={(navData) => (navData.isActive ? 'link-active' : '')}
               to={`/user/${userInfo?.uid}/orders`}
             >
-              User Orders
+              Pedidos
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={(navData) => (navData.isActive ? 'link-active' : '')}
+              to={`/user/${userInfo?.uid}/favorites`}
+            >
+              Favoritos
             </NavLink>
           </li>
         </ul>

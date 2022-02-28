@@ -6,14 +6,14 @@ import {
   MdLoop,
 } from 'react-icons/md';
 import { useContext, useEffect, useState } from 'react';
-import Message from './Message';
-import InputAdd from '../form/InputAdd';
-import Input from '../form/Input';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import { ItemContext } from '../context/ItemContext';
+import Message from './Message';
+import InputAdd from '../form/InputAdd';
+import Input from '../form/Input';
 import ButtonIcon from '../form/ButtonIcon';
-import InputRadio from '../form/InputRadio';
+// import poster_default from '../assets/celular.png';
 
 function AdminCreateNewItem() {
   const { user, userInfo } = useContext(UserContext);
@@ -23,7 +23,7 @@ function AdminCreateNewItem() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
-  const [poster, setPoster] = useState('');
+  const [poster, setPoster] = useState('https://i.imgur.com/FVHGfS0.png');
   const [info, setInfo] = useState('');
   const [category, setCategory] = useState('');
   const [categories, setCategories] = useState([]);
@@ -125,7 +125,7 @@ function AdminCreateNewItem() {
   useEffect(() => {
     if (user) {
       (async () => {
-        generatePoster();
+        // generatePoster();
         if (!userInfo.isAdmin) navigate('/');
       })();
     } else {

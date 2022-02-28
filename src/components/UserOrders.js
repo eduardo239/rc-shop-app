@@ -5,7 +5,7 @@ function UserOrders() {
   return (
     <section>
       <div>
-        <h3>User Orders</h3>
+        <h3>Pedidos</h3>
       </div>
 
       <div>

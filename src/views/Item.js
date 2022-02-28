@@ -9,7 +9,7 @@ import {
   MdOutlineStarBorderPurple500,
 } from 'react-icons/md';
 import apiItem from '../api/item';
-import poster_default from '../assets/cel.png';
+import poster_default from '../assets/celular.png';
 import ButtonIcon from '../form/ButtonIcon';
 import Input from '../form/Input';
 import InputAdd from '../form/InputAdd';
@@ -88,6 +88,11 @@ function Item() {
     }
   };
 
+  const handleChangeColor = (color) => {
+    setSelectedColor(color);
+    console.log(color);
+  };
+
   useEffect(() => {
     let isMounted = true;
     (async () => {
@@ -95,7 +100,10 @@ function Item() {
         try {
           const response = await apiItem.getItemById(id);
 
-          if (isMounted) setItem(response.data.data);
+          if (isMounted) {
+            setItem(response.data.data);
+            setSelectedColor(response.data.data.colors[0]);
+          }
         } catch (error) {
           console.log(error.message);
           navigate('/product-not-found');
@@ -103,11 +111,15 @@ function Item() {
       }
     })();
     return () => (isMounted = false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (
     <section className="item-wrapper">
-      <div className="item-wrapper__poster">
+      <div
+        className="item-wrapper__poster"
+        style={{ background: selectedColor }}
+      >
         <div className="item-wrapper__title">
           <h4>Title: {item.name}</h4>
           <p>{convertToCurrency(item.price)}</p>
@@ -119,7 +131,11 @@ function Item() {
           </NavLink>
         </div>
 
-        <img src={item.poster ? item.poster : poster_default} alt="" />
+        <img
+          className="card-group__img"
+          src={item.poster ? item.poster : poster_default}
+          alt=""
+        />
       </div>
 
       <div className="item-wrapper__info">
@@ -132,7 +148,7 @@ function Item() {
                   key={color}
                   style={{ backgroundColor: color }}
                   className="btn-color-select"
-                  onClick={() => setSelectedColor(color)}
+                  onClick={() => handleChangeColor(color)}
                 ></button>
               ))
             ) : (

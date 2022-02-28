@@ -146,7 +146,7 @@ function Menu() {
                       className={(navData) =>
                         navData.isActive ? 'link-active' : ''
                       }
-                      to={`/user/${user.uid}`}
+                      to={`/user/${user.uid}/home`}
                     >
                       <MdFace />
                     </NavLink>

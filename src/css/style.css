@@ -612,24 +612,30 @@ button:disabled svg {
   flex-direction: column;
 }
 
-.card--img {
+.card-img {
   display: flex;
   margin: 0 auto;
   margin-bottom: 10px;
   width: 100%;
-  height: 200px;
 }
 
-.card--title {
+.card-title {
   font-size: 1.15rem;
   font-weight: 600;
   text-align: center;
   padding: 0 1rem;
+  flex: 1;
 }
 
-.card--content {
+.card-content {
   padding: 1rem;
   flex: 1;
+}
+
+.card-group__img {
+  display: flex;
+  justify-content: center;
+  max-height: 40rem;
 }
 
 /* - - - - - - - - - - - padding - - - - - - - - - - -  */
@@ -756,14 +762,16 @@ button:disabled svg {
 .div2,
 .div3 {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.div1 {
+.div1,
+.item-wrapper__poster {
   grid-area: 1 / 1 / 3 / 2;
 }
-.div1 img {
-  width: 100%;
-}
+
 .div2 {
   grid-area: 1 / 2 / 2 / 3;
 }

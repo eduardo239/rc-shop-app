@@ -41,7 +41,7 @@ function UserEdit() {
   return (
     <section>
       <div>
-        <h3>User Edit</h3>
+        <h3>Editar</h3>
       </div>
 
       <div>

@@ -1,6 +1,7 @@
-const { isEmpty } = require('../helper');
+const { isEmpty, arrayRemover } = require('../helper');
 const User = require('../models/User');
 const Item = require('../models/item');
+const { restart } = require('nodemon');
 
 const newUser = (req, res) => {
   const body = req.body;
@@ -177,6 +178,52 @@ const addToFavorite = (req, res) => {
     .catch((err) => console.error(err));
 };
 
+const removeFromFavorite = (req, res) => {
+  User.findById(req.params.id, (err, user) => {
+    if (err) {
+      return res.status(400).json({ success: false, error: err });
+    }
+
+    if (!user) {
+      return res.status(404).json({ success: false, error: 'Item not found' });
+    }
+
+    const contain = user.favorites_id.includes(req.body.favoriteId);
+    if (contain) {
+      user.favorites_id = arrayRemover(user.favorites_id, req.body.favoriteId);
+      user.save();
+      return res.status(200).json({ success: true, data: user });
+    } else {
+      return res.status(200).json({
+        success: false,
+        data: user,
+        error: 'Item not in the array',
+      });
+    }
+  })
+    .clone()
+    .catch((err) => console.error(err));
+};
+
+const getUserFavorites = (req, res) => {
+  User.findOne({ uid: req.params.id }, (err, user) => {
+    if (err) {
+      return res.status(400).json({ success: false, error: err });
+    }
+
+    if (!user) {
+      return res.status(404).json({ success: false, error: 'Item not found' });
+    }
+
+    return res.status(200).json({ success: true, data: user.favorites_id });
+
+    // TODO: filter fields
+  })
+    .populate('favorites_id')
+    .clone()
+    .catch((err) => console.error(err));
+};
+
 module.exports = {
   newUser,
   allUsers,
@@ -185,4 +232,6 @@ module.exports = {
   updateUser,
   userByUsername,
   addToFavorite,
+  removeFromFavorite,
+  getUserFavorites,
 };

@@ -1,8 +1,8 @@
-import Card from '../components/Card';
-import poster_default from '../assets/card_img.jpg';
 import { useContext } from 'react';
-import CardGroup from '../components/CardGroup';
 import { ItemContext } from '../context/ItemContext';
+import Card from '../components/Card';
+import CardGroup from '../components/CardGroup';
+import poster_default from '../assets/celular.png';
 
 function Items() {
   const { items } = useContext(ItemContext);

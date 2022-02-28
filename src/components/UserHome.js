@@ -7,7 +7,7 @@ function UserHome() {
   return (
     <section>
       <div>
-        <h3>User Home</h3>
+        <h3>Perfil</h3>
       </div>
 
       <div>

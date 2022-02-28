@@ -18,6 +18,7 @@ import CartAddress from '../components/CartAddress';
 import CartPayment from '../components/CartPayment';
 import ItemNotFound from './ItemNotFound';
 import NotFound from './404';
+import UserFavorites from '../components/UserFavorites';
 
 function Main() {
   const { searchResults, setSearchResults } = useContext(ItemContext);
@@ -69,6 +70,7 @@ function Main() {
                 <Route path="home" element={<UserHome />} />
                 <Route path="orders" element={<UserOrders />} />
                 <Route path="edit" element={<UserEdit />} />
+                <Route path="favorites" element={<UserFavorites />} />
               </Route>
               <Route exact path="/admin" element={<Admin />} />
               <Route path="*" element={<NotFound />} />

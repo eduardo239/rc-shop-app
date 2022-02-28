@@ -12,6 +12,8 @@ export const updateUser = (id, payload) =>
   api.put(`/update-user/${id}`, payload);
 export const addToFavorite = (userId, itemId) =>
   api.put(`/add-to-favorite/${userId}`, itemId);
+export const getUserFavorites = (userId) =>
+  api.get(`/user-favorites/${userId}`);
 
 const apis = {
   createNewUser,
@@ -21,6 +23,7 @@ const apis = {
   deleteUser,
   getUserByUsername,
   addToFavorite,
+  getUserFavorites,
 };
 
 export default apis;
