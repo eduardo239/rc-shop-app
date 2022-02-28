@@ -34,6 +34,7 @@ function Item() {
   const [selectedStorage, setSelectedStorage] = useState('');
 
   const handleBuy = () => {
+    setMessage('');
     if (userInfo) {
       setOrder({
         ...order,
@@ -54,6 +55,8 @@ function Item() {
           },
         ],
       });
+
+      setMessage('Produto adicionado ao carrinho!');
     } else {
       alert('Para comprar é necessário estar logado');
     }
@@ -90,7 +93,6 @@ function Item() {
 
   const handleChangeColor = (color) => {
     setSelectedColor(color);
-    console.log(color);
   };
 
   useEffect(() => {

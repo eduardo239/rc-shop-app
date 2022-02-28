@@ -16,9 +16,12 @@ import {
   MdOutlineBedtime,
 } from 'react-icons/md';
 import { ItemContext } from '../context/ItemContext';
+import { OrderContext } from '../context/OrderContext';
 
 function Menu() {
   const { user, setUser, setUserInfo } = useContext(UserContext);
+  const { order } = useContext(OrderContext);
+  console.log(order.items.length);
   const { setSearchResults } = useContext(ItemContext);
 
   const [term, setTerm] = useState('');
@@ -87,6 +90,9 @@ function Menu() {
                   <MdShoppingCart />
                 </NavLink>
               </li>
+              <div className="ballon">
+                <span>{order.items.length}</span>
+              </div>
               <li>
                 <NavLink
                   className={(navData) =>

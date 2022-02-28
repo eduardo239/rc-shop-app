@@ -1,7 +1,6 @@
 const { isEmpty, arrayRemover } = require('../helper');
 const User = require('../models/User');
 const Item = require('../models/item');
-const { restart } = require('nodemon');
 
 const newUser = (req, res) => {
   const body = req.body;
