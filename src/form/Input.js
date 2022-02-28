@@ -1,4 +1,11 @@
-function Input({ type, placeholder, value, label, onChange }) {
+function Input({
+  type,
+  placeholder,
+  value,
+  label,
+  disabled = false,
+  onChange,
+}) {
   return (
     <>
       <label className="form-control__label" htmlFor={label}>
@@ -12,6 +19,7 @@ function Input({ type, placeholder, value, label, onChange }) {
         value={value}
         onChange={onChange}
         name={label}
+        disabled={disabled}
       />
     </>
   );

@@ -4,7 +4,7 @@ import { OrderContext } from '../context/OrderContext';
 import Input from '../form/Input';
 import { convertToCurrency } from '../helper';
 
-function CartTableItems({ order }) {
+function CartTableItems({ order, disabled }) {
   // eslint-disable-next-line no-unused-vars
   const { setOrder } = useContext(OrderContext);
 
@@ -43,6 +43,7 @@ function CartTableItems({ order }) {
                   type="number"
                   value={item.quantity}
                   onChange={(e) => handleQuantityChange(item, e.target.value)}
+                  disabled={disabled}
                 />
               </td>
               <td>{convertToCurrency(item.price * item.quantity)}</td>

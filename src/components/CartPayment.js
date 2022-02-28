@@ -81,7 +81,7 @@ function CartPayment() {
       <div className="mb-20">
         <h5>Produtos</h5>
         {order ? (
-          <CartTableItems order={order} />
+          <CartTableItems order={order} disabled={true} />
         ) : (
           <div>Não há itens no carrinho</div>
         )}
