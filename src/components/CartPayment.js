@@ -1,13 +1,13 @@
 import { useContext, useRef, useState } from 'react';
 import { OrderContext } from '../context/OrderContext';
 import { useNavigate } from 'react-router-dom';
-import { convertToCurrency } from '../helper';
 import { MdNavigateNext, MdNavigateBefore, MdLoop } from 'react-icons/md';
 import CartTableAddress from './CartTableAddress';
 import CartTableItems from './CartTableItems';
 import ButtonIcon from '../form/ButtonIcon';
 import InputRadio from '../form/InputRadio';
 import QRCode from 'qrcode';
+import CartTableShipping from './CartTableShipping';
 
 function CartPayment() {
   let navigate = useNavigate();
@@ -93,21 +93,7 @@ function CartPayment() {
       </div>
 
       <div className="mb-20">
-        <h5>Resumo</h5>
-        <div className="payment-wrapper">
-          <div>
-            <h5>Subtotal</h5>
-            <p>{convertToCurrency(totalvalue)}</p>
-          </div>
-          <div>
-            <h5>Frete</h5>
-            <p>{convertToCurrency(123)}</p>
-          </div>
-          <div>
-            <h5>Total</h5>
-            <p>{convertToCurrency(totalvalue)}</p>
-          </div>
-        </div>
+        <CartTableShipping totalvalue={totalvalue} shipping={0.0025} />
       </div>
 
       <div className="qrcode-wrapper mb-20">

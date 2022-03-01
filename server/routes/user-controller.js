@@ -93,8 +93,6 @@ const deleteUser = (req, res) => {
 };
 
 const updateUser = (req, res) => {
-  console.log(req.body);
-
   const body = req.body;
 
   if (isEmpty(req.body)) {
@@ -135,7 +133,7 @@ const updateUser = (req, res) => {
 };
 
 const addToFavorite = (req, res) => {
-  Item.findById(req.body.itemId, (err, item) => {
+  Item.findById(req.body._id, (err, item) => {
     if (err) {
       return res.status(400).json({ success: false, error: err });
     }
@@ -178,7 +176,7 @@ const addToFavorite = (req, res) => {
 };
 
 const removeFromFavorite = (req, res) => {
-  User.findById(req.params.id, (err, user) => {
+  User.findOne({ uid: req.params.id }, (err, user) => {
     if (err) {
       return res.status(400).json({ success: false, error: err });
     }
@@ -187,9 +185,14 @@ const removeFromFavorite = (req, res) => {
       return res.status(404).json({ success: false, error: 'Item not found' });
     }
 
-    const contain = user.favorites_id.includes(req.body.favoriteId);
+    const contain = user.favorites_id.includes(req.query.favoriteId);
+
     if (contain) {
-      user.favorites_id = arrayRemover(user.favorites_id, req.body.favoriteId);
+      // check if the item is in the array
+      const index = user.favorites_id.indexOf(req.query.favoriteId);
+      // remove item from array
+      user.favorites_id.splice(index, 1);
+
       user.save();
       return res.status(200).json({ success: true, data: user });
     } else {
@@ -211,7 +214,7 @@ const getUserFavorites = (req, res) => {
     }
 
     if (!user) {
-      return res.status(404).json({ success: false, error: 'Item not found' });
+      return res.status(404).json({ success: false, error: 'Items not found' });
     }
 
     return res.status(200).json({ success: true, data: user.favorites_id });
@@ -219,6 +222,31 @@ const getUserFavorites = (req, res) => {
     // TODO: filter fields
   })
     .populate('favorites_id')
+    .clone()
+    .catch((err) => console.error(err));
+};
+
+const checkIfFavorited = (req, res) => {
+  User.findOne({ uid: req.params.id }, (err, user) => {
+    if (err) {
+      return res.status(400).json({ success: false, error: err });
+    }
+
+    if (!user) {
+      return res.status(404).json({ success: false, error: 'Item not found' });
+    }
+
+    const contain = user.favorites_id.includes(req.query.favoriteId);
+
+    if (contain) {
+      return res.status(200).json({ response: true });
+    } else {
+      return res.status(200).json({
+        response: false,
+        error: 'Item is not in the array',
+      });
+    }
+  })
     .clone()
     .catch((err) => console.error(err));
 };
@@ -233,4 +261,5 @@ module.exports = {
   addToFavorite,
   removeFromFavorite,
   getUserFavorites,
+  checkIfFavorited,
 };

@@ -10,8 +10,8 @@ function CartTableAddress({ address }) {
           <th>Complemento</th>
           <th>Bairro</th>
           <th>Cidade</th>
-          <th>Estado</th>
-          <th>País</th>
+          <th>UF</th>
+
           <th>CEP</th>
         </tr>
       </thead>
@@ -24,7 +24,7 @@ function CartTableAddress({ address }) {
             <td>{address.district}</td>
             <td>{address.city}</td>
             <td>{address.state}</td>
-            <td>{address.country}</td>
+
             <td>{address.zipcode}</td>
           </tr>
         ) : (

@@ -1,7 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { OrderContext } from '../context/OrderContext';
 import CartTableItems from './CartTableItems';
 
 function UserOrders() {
+  const { order } = useContext(OrderContext);
+
+  console.log(order);
+
   return (
     <section>
       <div>
@@ -9,10 +14,7 @@ function UserOrders() {
       </div>
 
       <div>
-        {/* <CartTableItems
-          quantity={quantity}
-          setQuantity={(e) => setQuantity(e.target.value)}
-        /> */}
+        <CartTableItems order={order} disabled={true} />
       </div>
     </section>
   );

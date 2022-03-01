@@ -17,7 +17,7 @@ function CartMenu() {
           }
           to="/cart/items"
         >
-          <MdProductionQuantityLimits /> Produtos
+          <MdProductionQuantityLimits /> <span>Produtos</span>
         </NavLink>
       </li>
       <li>
@@ -29,7 +29,7 @@ function CartMenu() {
           }
           to="/cart/address"
         >
-          <MdLocationOn /> Endereço
+          <MdLocationOn /> <span>Endereço</span>
         </NavLink>
       </li>
       <li>
@@ -41,7 +41,7 @@ function CartMenu() {
           }
           to="/cart/payment"
         >
-          <MdOutlinePayment /> Pagamento
+          <MdOutlinePayment /> <span>Pagamento</span>
         </NavLink>
       </li>
     </ul>

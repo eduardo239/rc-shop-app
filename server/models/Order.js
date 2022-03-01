@@ -14,7 +14,7 @@ const Address = new Schema({
 });
 
 const Items = new Schema({
-  itemId: { type: String, required: true },
+  _id: { type: String, required: true },
   price: { type: Number, required: true },
   promo: { type: String, required: false },
   quantity: { type: Number, required: true },

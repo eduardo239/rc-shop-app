@@ -1,12 +1,11 @@
 import { useContext } from 'react';
-import { MdClose, MdPalette } from 'react-icons/md';
-import { OrderContext } from '../context/OrderContext';
 import { convertToCurrency } from '../helper';
+import { OrderContext } from '../context/OrderContext';
+import { MdClose } from 'react-icons/md';
 import Button from '../form/Button';
 import Input from '../form/Input';
 
 function CartTableItems({ order, disabled }) {
-  // eslint-disable-next-line no-unused-vars
   const { setOrder } = useContext(OrderContext);
 
   const handleQuantityChange = async (item, quantity) => {
@@ -19,14 +18,12 @@ function CartTableItems({ order, disabled }) {
 
   const handleRemoveItem = async (item) => {
     try {
-      let arr = order.items.filter((i) => i.itemId !== item.itemId);
+      let arr = order.items.filter((i) => i._id !== item._id);
       setOrder({ ...order, items: arr });
     } catch (err) {
       console.log(err.message);
     }
   };
-
-  console.log(order);
 
   return (
     <table>
@@ -38,10 +35,11 @@ function CartTableItems({ order, disabled }) {
           <th style={{ width: '10%' }}>Quantidade</th>
           <th style={{ width: '10%' }}>Promoção</th>
           <th style={{ width: '10%' }}>Preço</th>
-          <th style={{ width: '21%' }}>Total vezes unidade</th>
-          <th className="w-32">R</th>
+          <th style={{ width: '21%' }}>Total por unidade</th>
+          <th className="w-32">D</th>
         </tr>
       </thead>
+
       <tbody>
         {order?.items.length > 0 ? (
           order.items.map((item, index) => (

@@ -19,6 +19,8 @@ import CartPayment from '../components/CartPayment';
 import ItemNotFound from './ItemNotFound';
 import NotFound from './404';
 import UserFavorites from '../components/UserFavorites';
+import Button from '../form/Button';
+import { MdClose } from 'react-icons/md';
 
 function Main() {
   const { searchResults, setSearchResults } = useContext(ItemContext);
@@ -32,7 +34,15 @@ function Main() {
       <div className="relative">
         {searchResults.length > 0 && (
           <section className="search-results-wrapper">
-            <h4>Resultados</h4>
+            <div className="flex flex-justify-between flex-align-center">
+              <h4>Resultados</h4>
+
+              <Button
+                icon
+                value={<MdClose />}
+                onClick={() => setSearchResults([])}
+              />
+            </div>
             {searchResults.length > 0 && (
               <ul className="search-results__list">
                 {searchResults.map((item) => (
@@ -42,8 +52,8 @@ function Main() {
                       className="justify-between w-100"
                       onClick={() => setSearchResults([])}
                     >
-                      <p>{item.name}</p>
-                      <p>{convertToCurrency(item.price)}</p>
+                      <span>{item.name}</span>
+                      <span>{convertToCurrency(item.price)}</span>
                     </Link>
                   </li>
                 ))}

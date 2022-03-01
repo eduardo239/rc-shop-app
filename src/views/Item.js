@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { OrderContext } from '../context/OrderContext';
 import { UserContext } from '../context/UserContext';
-import { convertToCurrency } from '../helper';
+import { checkIfObjectIsInArrayOrder, convertToCurrency } from '../helper';
 import {
   MdOutlineAdd,
   MdOutlineAttachMoney,
@@ -21,7 +21,7 @@ const PROMO_20 = 'PROMO20';
 
 function Item() {
   const { order, setOrder } = useContext(OrderContext);
-  const { userInfo } = useContext(UserContext);
+  const { userInfo, setUserInfo } = useContext(UserContext);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -34,11 +34,10 @@ function Item() {
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedStorage, setSelectedStorage] = useState('');
   const [discount, setDiscount] = useState(0);
+  const [alreadyFavorite, setAlreadyFavorite] = useState(false);
 
   const handleBuy = () => {
     setMessage('');
-
-    console.log(selectedColor);
 
     if (!selectedColor) {
       setMessage('Selecione a cor do produto.');
@@ -50,6 +49,18 @@ function Item() {
       return;
     }
 
+    const contain = checkIfObjectIsInArrayOrder(
+      item._id,
+      selectedColor,
+      selectedStorage,
+      order.items
+    );
+
+    if (contain) {
+      setMessage('Produto já adicionado ao carrinho.');
+      return;
+    }
+
     if (userInfo) {
       setOrder({
         ...order,
@@ -57,7 +68,7 @@ function Item() {
         items: [
           ...order.items,
           {
-            itemId: item._id,
+            _id: item._id,
             price: promoValid ? item.price - item.price * discount : item.price,
             promo: promoValid ? promo : '',
             quantity: parseFloat(quantity),
@@ -96,18 +107,46 @@ function Item() {
   const handleAddToFavorite = async () => {
     if (userInfo) {
       try {
-        const payload = {
-          itemId: item._id,
-        };
-        const response = await apis.addToFavorite(userInfo.uid, payload);
-        if (response.status === 200) {
-          setMessage('Item adicionado aos favoritos');
+        const payload = { favoriteId: item._id };
+        const {
+          data: { response },
+        } = await apis.checkIfItemIsFavorite(userInfo.uid, payload);
+
+        if (response) {
+          setMessage('Este item já está adicionado aos favoritos.');
+          return;
+        } else {
+          try {
+            const payload = {
+              _id: item._id,
+            };
+            const response = await apis.addToFavorite(userInfo.uid, payload);
+            if (response.status === 200) {
+              setMessage('Item adicionado aos favoritos');
+              setUserInfo(response.data.data);
+            }
+          } catch (err) {
+            console.log(err.message);
+          }
         }
-      } catch (err) {
-        console.log(err.message);
+      } catch (error) {
+        console.log(error);
       }
     } else {
       alert('Para adicionar aos favoritos é necessário estar logado');
+    }
+  };
+
+  const handleRemoveFromFavorite = async (itemId) => {
+    try {
+      const response = await apis.removeFromFavorites(userInfo.uid, itemId);
+      console.log(response.data.data);
+      if (response.status === 200) {
+        setMessage('Item removido dos favoritos');
+        setUserInfo(response.data.data);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -137,6 +176,24 @@ function Item() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
+  useEffect(() => {
+    let isMounted = true;
+
+    if (userInfo) {
+      (async () => {
+        const { data } = await apis.checkIfItemIsFavorite(userInfo.uid, {
+          favoriteId: item._id,
+        });
+
+        if (isMounted && data.response) {
+          setAlreadyFavorite('Este item já está adicionado aos favoritos.');
+        }
+      })();
+    }
+    return () => (isMounted = false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userInfo]);
+
   return (
     <section className="item-wrapper">
       <div
@@ -149,9 +206,20 @@ function Item() {
         </div>
 
         <div className="item-wrapper__favorite">
-          <NavLink to="#" onClick={() => handleAddToFavorite(item._id)}>
-            <MdOutlineStarBorderPurple500 />
-          </NavLink>
+          {!!alreadyFavorite}
+          {alreadyFavorite ? (
+            <NavLink
+              className="icon-active"
+              to="#"
+              onClick={() => handleRemoveFromFavorite(item._id)}
+            >
+              <MdOutlineStarBorderPurple500 />
+            </NavLink>
+          ) : (
+            <NavLink to="#" onClick={() => handleAddToFavorite(item._id)}>
+              <MdOutlineStarBorderPurple500 />
+            </NavLink>
+          )}
         </div>
 
         <img
@@ -198,12 +266,14 @@ function Item() {
             <p>Description: {item.description}</p>
           </div>
 
-          <Input
-            label="Quantidade"
-            type="number"
-            onChange={(e) => setQuantity(e.target.value)}
-            value={quantity}
-          />
+          <div className="mb-10">
+            <Input
+              label="Quantidade"
+              type="number"
+              onChange={(e) => setQuantity(e.target.value)}
+              value={quantity}
+            />
+          </div>
         </div>
 
         <div className="mb-10">
@@ -214,7 +284,7 @@ function Item() {
             </>
           ) : (
             <>
-              <h5 className="old-price">{convertToCurrency(item.price)}</h5>
+              <p className="old-price">{convertToCurrency(item.price)}</p>
               <small>Preço com código promocional</small>
               <h5 className="new-price">
                 {convertToCurrency(item.price - item.price * discount)}

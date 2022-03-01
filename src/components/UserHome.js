@@ -1,5 +1,5 @@
-import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
+import { useContext } from 'react';
 
 function UserHome() {
   const { userInfo } = useContext(UserContext);
@@ -12,7 +12,6 @@ function UserHome() {
 
       <div>
         <h5>User: {userInfo?.username}</h5>
-
         <h5>Email: {userInfo?.email}</h5>
       </div>
     </section>

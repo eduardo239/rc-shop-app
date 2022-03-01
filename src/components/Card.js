@@ -8,9 +8,9 @@ function Card({ id, title, content, alt, poster, colors, storages, specs }) {
     e.preventDefault();
     navigate(`/${id}`);
   };
-
+  console.log(colors[0]);
   return (
-    <div className="card">
+    <div className="card" style={{ background: colors[0] }}>
       <Link to={`/${id}`}>
         <img className="card-img" src={poster} alt={alt} />
       </Link>
@@ -20,7 +20,7 @@ function Card({ id, title, content, alt, poster, colors, storages, specs }) {
       {/* <p className="card-content">
         {content.length > 90 ? content.slice(0, 90) + '...' : content}
       </p> */}
-      <Button full value="Comprar" onClick={handleClick} />
+      <Button full value="Ver mais" onClick={handleClick} />
     </div>
   );
 }

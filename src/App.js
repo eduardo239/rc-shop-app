@@ -35,14 +35,16 @@ function App() {
   }, []);
 
   useEffect(() => {
+    let isMounted = true;
     if (user) {
       (async () => {
         const {
           data: { data },
         } = await apis.getUserById(user.uid);
-        setUserInfo(data);
+        if (isMounted) setUserInfo(data);
       })();
     }
+    return () => (isMounted = false);
   }, [user, setUserInfo]);
 
   return (

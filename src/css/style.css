@@ -124,6 +124,8 @@ img {
 
 table {
   width: 100%;
+  border-left: 3px solid var(--color-primary);
+  border-right: 3px solid var(--color-primary);
 }
 
 input,
@@ -325,7 +327,7 @@ button:disabled svg {
 .btn-storage-select:active,
 .btn-color-select:focus,
 .btn-color-select:active {
-  outline: 3px solid var(--color-danger);
+  outline: 3px solid var(--color-primary-dark);
 }
 
 .link-active svg {
@@ -472,6 +474,11 @@ button:disabled svg {
   background-color: var(--color-primary);
 }
 
+.menu__item li a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 /* - - - - - - - - - - - user - - - - - - - - - - -  */
 .user-wrapper {
   display: grid;
@@ -547,7 +554,7 @@ button:disabled svg {
 }
 .item-wrapper__info-color {
   display: flex;
-  gap: 4px;
+  gap: 5px;
 }
 /* - - - - - - - - - - - search - - - - - - - - - - -  */
 .search-wrapper {
@@ -592,8 +599,11 @@ button:disabled svg {
   margin-bottom: 1px;
 }
 
-.search-results__list li p {
-  margin: 5px;
+.search-results__list li a {
+  margin: 0px;
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 12px;
 }
 /* - - - - - - - - - - - form - - - - - - - - - - -  */
 .sign-form {
@@ -766,9 +776,9 @@ button:disabled svg {
   justify-content: center;
   align-items: center;
   display: block;
-  width: 30px;
-  height: 30px;
-  border-radius: 60px;
+  width: 24px;
+  height: 24px;
+  border-radius: 42px;
   margin: 0 auto;
 }
 
@@ -844,4 +854,21 @@ button:disabled svg {
 .new-price {
   color: var(--color-primary);
   font-size: 1.75rem;
+}
+
+.old-price,
+.new-price {
+  font-family: var(--font-ibm-plex);
+}
+
+/* - - - - - - - - - - - favorite-row - - - - - - - - - - -  */
+.favorite-row {
+  background: var(--color-disabled-darker);
+  align-items: center;
+  padding: 0 0 0 1rem;
+}
+
+.icon-active svg {
+  color: var(--color-primary);
+  fill: var(--color-primary);
 }
