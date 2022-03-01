@@ -6,10 +6,11 @@ function Button({
   full,
   onClick,
   type,
+  color = 'primary',
 }) {
   return (
     <button
-      className={`${icon ? 'btn-icon' : 'btn'} btn-primary ${
+      className={`${icon ? 'btn-icon' : 'btn'} btn-${color} ${
         full ? 'btn-full' : ''
       }`}
       onClick={onClick}

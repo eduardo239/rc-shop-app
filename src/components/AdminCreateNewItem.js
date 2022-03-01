@@ -1,3 +1,7 @@
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
+import { ItemContext } from '../context/ItemContext';
 import apiItem from '../api/item';
 import {
   MdOutlineSave,
@@ -5,17 +9,12 @@ import {
   MdOutlineAdd,
   MdLoop,
 } from 'react-icons/md';
-import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../context/UserContext';
-import { ItemContext } from '../context/ItemContext';
 import Message from './Message';
 import InputAdd from '../form/InputAdd';
 import Input from '../form/Input';
 import ButtonIcon from '../form/ButtonIcon';
-// import poster_default from '../assets/celular.png';
 
-function AdminCreateNewItem() {
+function AdminCreateNewItem({ updateDisabled, setUpdateDisabled }) {
   const { user, userInfo } = useContext(UserContext);
   const { setItems, item } = useContext(ItemContext);
   const navigate = useNavigate();
@@ -32,7 +31,6 @@ function AdminCreateNewItem() {
   const [color, setColor] = useState('#ffffff');
   const [colors, setColors] = useState([]);
   const [specs, setSpecs] = useState([]);
-
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
@@ -66,6 +64,7 @@ function AdminCreateNewItem() {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+    setUpdateDisabled(true);
 
     try {
       const payload = {
@@ -239,25 +238,28 @@ function AdminCreateNewItem() {
             value={colors}
           />
           <hr />
-
-          <ButtonIcon
-            iconAfter={<MdOutlineCleaningServices />}
-            type="button"
-            value="Reset"
-            onClick={handleReset}
-          />
-          <ButtonIcon
-            iconAfter={<MdOutlineSave />}
-            type="submit"
-            value="Cadastrar"
-            onClick={handleSubmit}
-          />
-          <ButtonIcon
-            iconAfter={<MdLoop />}
-            type="submit"
-            value="Atualizar"
-            onClick={handleUpdate}
-          />
+          <div className="flex">
+            <ButtonIcon
+              iconAfter={<MdOutlineCleaningServices />}
+              type="button"
+              value="Reset"
+              onClick={handleReset}
+            />
+            <ButtonIcon
+              iconAfter={<MdOutlineSave />}
+              type="submit"
+              value="Cadastrar"
+              onClick={handleSubmit}
+              disabled={!updateDisabled}
+            />
+            <ButtonIcon
+              iconAfter={<MdLoop />}
+              type="submit"
+              value="Atualizar"
+              onClick={handleUpdate}
+              disabled={updateDisabled}
+            />
+          </div>
         </div>
       </form>
       {message && <Message type="error" value={message} />}

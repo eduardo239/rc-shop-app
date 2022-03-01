@@ -21,7 +21,6 @@ import { OrderContext } from '../context/OrderContext';
 function Menu() {
   const { user, setUser, setUserInfo } = useContext(UserContext);
   const { order } = useContext(OrderContext);
-  console.log(order.items.length);
   const { setSearchResults } = useContext(ItemContext);
 
   const [term, setTerm] = useState('');

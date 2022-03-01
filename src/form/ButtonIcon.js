@@ -5,13 +5,14 @@ function ButtonIcon({
   full,
   onClick,
   type,
-  disabled,
+  disabled = false,
+  color = 'primary',
 }) {
   return (
     <button
       className={`${
         iconAfter || iconBefore ? 'btn-and-icon' : 'btn'
-      } btn-primary ${full ? 'btn-full' : ''}`}
+      } btn-${color} ${full ? 'btn-full' : ''}`}
       onClick={onClick}
       type={type}
       disabled={disabled}

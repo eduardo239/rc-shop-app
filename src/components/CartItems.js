@@ -12,9 +12,9 @@ function CartItems() {
 
   return (
     <section>
-      <div>
+      <div className="mb-20">
         <h3>Itens</h3>
-        <CartTableItems order={order} />
+        <CartTableItems order={order} disabled={true} />
       </div>
       <div className="flex">
         <ButtonIcon

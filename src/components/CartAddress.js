@@ -124,7 +124,7 @@ function CartAddress() {
         {message && <Message type="error" value={message} />}
       </div>
 
-      <div className="mb-10">
+      <div className="mb-20">
         <CartTableAddress address={a} />
       </div>
 

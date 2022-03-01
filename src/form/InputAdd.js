@@ -6,6 +6,7 @@ function InputAdd({
   onChange,
   buttonValue,
   onButtonClick,
+  buttonColor = 'primary',
 }) {
   return (
     <>
@@ -23,7 +24,7 @@ function InputAdd({
         />
         <button
           type="button"
-          className="btn btn-primary"
+          className={`btn btn-${buttonColor}`}
           onClick={onButtonClick}
         >
           {buttonValue}

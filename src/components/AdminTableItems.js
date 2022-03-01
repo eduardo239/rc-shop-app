@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 import Message from './Message';
 import { ItemContext } from '../context/ItemContext';
 
-function AdminTableItems() {
+function AdminTableItems({ setUpdateDisabled }) {
   const { items, setItems, setItem } = useContext(ItemContext);
 
   const [error, setError] = useState('');
@@ -22,6 +22,7 @@ function AdminTableItems() {
   };
 
   const handleEdit = async (item) => {
+    setUpdateDisabled(false);
     setItem(item);
   };
 
@@ -41,8 +42,8 @@ function AdminTableItems() {
             <th>Name</th>
             <th>Price</th>
             <th>Colors</th>
-            <th className="w-38">D</th>
-            <th className="w-38">U</th>
+            <th className="w-32">D</th>
+            <th className="w-32">U</th>
           </tr>
         </thead>
 
@@ -56,14 +57,14 @@ function AdminTableItems() {
                 <td>{item.price}</td>
                 <td>{item.colors.length}</td>
 
-                <td className="w-38">
+                <td className="w-32">
                   <Button
                     icon
                     value={<MdClose />}
                     onClick={() => handleDelete(item._id)}
                   />
                 </td>
-                <td className="w-38">
+                <td className="w-32">
                   <Button
                     icon
                     value={<MdLoop />}

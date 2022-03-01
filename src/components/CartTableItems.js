@@ -1,8 +1,9 @@
 import { useContext } from 'react';
-import { MdPalette } from 'react-icons/md';
+import { MdClose, MdPalette } from 'react-icons/md';
 import { OrderContext } from '../context/OrderContext';
-import Input from '../form/Input';
 import { convertToCurrency } from '../helper';
+import Button from '../form/Button';
+import Input from '../form/Input';
 
 function CartTableItems({ order, disabled }) {
   // eslint-disable-next-line no-unused-vars
@@ -16,17 +17,29 @@ function CartTableItems({ order, disabled }) {
     }
   };
 
+  const handleRemoveItem = async (item) => {
+    try {
+      let arr = order.items.filter((i) => i.itemId !== item.itemId);
+      setOrder({ ...order, items: arr });
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  console.log(order);
+
   return (
-    <table className="mb-10">
+    <table>
       <thead>
         <tr>
-          <th>Nome</th>
-          <th className="w-38">
-            <MdPalette />
-          </th>
-          <th>Armazenamento</th>
-          <th>Quantidade</th>
-          <th>Preço</th>
+          <th style={{ width: '30%' }}>Nome</th>
+          <th className="w-32">C</th>
+          <th style={{ width: '10%' }}>Armazenamento</th>
+          <th style={{ width: '10%' }}>Quantidade</th>
+          <th style={{ width: '10%' }}>Promoção</th>
+          <th style={{ width: '10%' }}>Preço</th>
+          <th style={{ width: '21%' }}>Total vezes unidade</th>
+          <th className="w-32">R</th>
         </tr>
       </thead>
       <tbody>
@@ -46,24 +59,37 @@ function CartTableItems({ order, disabled }) {
                   disabled={disabled}
                 />
               </td>
+              <td>{item.promo}</td>
+              <td>{convertToCurrency(item.price)}</td>
               <td>{convertToCurrency(item.price * item.quantity)}</td>
+              <td>
+                <Button
+                  icon
+                  value={<MdClose />}
+                  onClick={() => handleRemoveItem(item)}
+                />
+              </td>
             </tr>
           ))
         ) : (
           <tr>
-            <td colSpan="5">Não há itens no carrinho</td>
+            <td colSpan="8">Não há itens no carrinho</td>
           </tr>
         )}
         {order.items.length > 0 && (
           <tr>
-            <td colSpan="4">Total</td>
-            <td>
-              {convertToCurrency(
-                order.items.reduce(
-                  (acc, item) => acc + item.price * item.quantity,
-                  0
-                )
-              )}
+            <td colSpan="5">
+              <h5>Total</h5>
+            </td>
+            <td colSpan="3">
+              <h5>
+                {convertToCurrency(
+                  order.items.reduce(
+                    (acc, item) => acc + item.price * item.quantity,
+                    0
+                  )
+                )}
+              </h5>
             </td>
           </tr>
         )}

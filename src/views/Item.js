@@ -16,8 +16,8 @@ import InputAdd from '../form/InputAdd';
 import Message from '../components/Message';
 import apis from '../api';
 
-const off = '.10';
 const PROMO_10 = 'PROMO10';
+const PROMO_20 = 'PROMO20';
 
 function Item() {
   const { order, setOrder } = useContext(OrderContext);
@@ -30,11 +30,26 @@ function Item() {
   const [promoValid, setPromoValid] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState('');
+  const [defaultColor, setDefaultColor] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedStorage, setSelectedStorage] = useState('');
+  const [discount, setDiscount] = useState(0);
 
   const handleBuy = () => {
     setMessage('');
+
+    console.log(selectedColor);
+
+    if (!selectedColor) {
+      setMessage('Selecione a cor do produto.');
+      return;
+    }
+
+    if (!selectedStorage) {
+      setMessage('Selecione um tamanho de armazenamento.');
+      return;
+    }
+
     if (userInfo) {
       setOrder({
         ...order,
@@ -43,11 +58,11 @@ function Item() {
           ...order.items,
           {
             itemId: item._id,
-            price: promoValid ? item.price - item.price * off : item.price,
-            promo: promoValid ? 'promo' : '',
+            price: promoValid ? item.price - item.price * discount : item.price,
+            promo: promoValid ? promo : '',
             quantity: parseFloat(quantity),
             total:
-              (promoValid ? item.price - item.price * off : item.price) *
+              (promoValid ? item.price - item.price * discount : item.price) *
               parseFloat(quantity),
             name: item.name,
             color: selectedColor,
@@ -66,7 +81,12 @@ function Item() {
     setPromo(promo);
     if (promo === PROMO_10) {
       setPromoValid(true);
+      setDiscount(0.1);
       setMessage('Promoção de 10% aplicada');
+    } else if (promo === PROMO_20) {
+      setPromoValid(true);
+      setDiscount(0.2);
+      setMessage('Promoção de 20% aplicada');
     } else {
       setPromoValid(false);
       setMessage('Código inválido');
@@ -93,6 +113,7 @@ function Item() {
 
   const handleChangeColor = (color) => {
     setSelectedColor(color);
+    setDefaultColor(null);
   };
 
   useEffect(() => {
@@ -104,10 +125,10 @@ function Item() {
 
           if (isMounted) {
             setItem(response.data.data);
-            setSelectedColor(response.data.data.colors[0]);
+            setDefaultColor(response.data.data.colors[0]);
           }
-        } catch (error) {
-          console.log(error.message);
+        } catch (err) {
+          console.log(err.message);
           navigate('/product-not-found');
         }
       }
@@ -120,7 +141,7 @@ function Item() {
     <section className="item-wrapper">
       <div
         className="item-wrapper__poster"
-        style={{ background: selectedColor }}
+        style={{ background: defaultColor || selectedColor }}
       >
         <div className="item-wrapper__title">
           <h4>Title: {item.name}</h4>
@@ -187,7 +208,19 @@ function Item() {
 
         <div className="mb-10">
           <h6>Preço</h6>
-          <h4>{convertToCurrency(item.price)}</h4>
+          {!promoValid ? (
+            <>
+              <h5 className="new-price">{convertToCurrency(item.price)}</h5>
+            </>
+          ) : (
+            <>
+              <h5 className="old-price">{convertToCurrency(item.price)}</h5>
+              <small>Preço com código promocional</small>
+              <h5 className="new-price">
+                {convertToCurrency(item.price - item.price * discount)}
+              </h5>
+            </>
+          )}
         </div>
 
         <div className="mb-10">

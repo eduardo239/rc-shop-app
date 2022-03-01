@@ -3,11 +3,11 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;1,400&display=swap');
 
 :root {
-  --color-primary: #00a8cc;
+  --color-primary: #c7ef00;
   --color-secondary: #f5f5f5;
 
-  --color-primary-dark: #0188a7;
-  --color-primary-light: #26c5e9;
+  --color-primary-dark: #9fbe00;
+  --color-primary-light: #dcff2f;
 
   --color-secondary-dark: #e0e0e0;
   --color-secondary-light: #f5f5f5;
@@ -17,6 +17,9 @@
 
   --color-dark-darker: #1f1f1f;
   --color-dark-lighter: #fdfdfd;
+
+  --color-disabled: #272a2b;
+  --color-disabled-darker: #17191a;
 
   --color-success: #4caf50;
   --color-danger: #f44336;
@@ -88,8 +91,9 @@ small,
 
 hr {
   border: 0;
-  border-top: 1px dashed var(--color-dark-darker);
+  border-bottom: 1px dashed var(--color-primary);
   margin: 1rem 0;
+  opacity: 0.1;
 }
 
 body {
@@ -226,25 +230,38 @@ button {
   margin-bottom: 1px;
 }
 
+button:hover {
+  filter: brightness(110%);
+}
+
 .btn {
   padding: 5px 14px;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.36px;
   text-transform: uppercase;
   align-items: center;
   display: inline-flex;
 }
+
 .btn-icon {
   justify-content: center;
 }
+
 .btn-icon,
 .btn-and-icon {
   display: inline-flex;
   align-items: center;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 700;
   padding: 7px 7px;
+}
+
+.btn,
+.btn-icon,
+.btn-and-icon {
+  border: 2px solid var(--color-primary-light);
+  border-bottom: 5px solid var(--color-primary-dark);
 }
 
 .btn-and-icon {
@@ -259,12 +276,18 @@ button {
 .btn-and-icon svg,
 .form-control__input-button svg {
   fill: var(--color-dark);
+  width: 18px;
+  height: 18px;
 }
 
 .btn-primary {
   color: var(--color-dark);
   background-color: var(--color-primary);
-  border: none;
+}
+
+.btn-secondary {
+  color: var(--color-dark);
+  background-color: var(--color-secondary);
 }
 
 .btn-full {
@@ -272,9 +295,10 @@ button {
 }
 
 button:disabled {
-  border: 1px solid #999999;
-  background-color: #8d8d8d;
-  color: #666666;
+  color: var(--color-dark);
+  background-color: var(--color-disabled);
+  border: 2px solid var(--color-disabled);
+  border-bottom: 5px solid var(--color-disabled-darker);
 }
 
 button:disabled svg {
@@ -305,13 +329,28 @@ button:disabled svg {
 }
 
 .link-active svg {
-  fill: var(--color-warning);
+  fill: var(--color-primary-light);
 }
 
 .link-active {
-  color: var(--color-warning) !important;
+  color: var(--color-primary-light) !important;
 }
 
+.link-active__dark svg {
+  fill: var(--color-dark-darker);
+}
+
+.link-active__dark {
+  color: var(--color-dark-darker) !important;
+}
+
+.link-active__dark-disabled svg {
+  fill: var(--color-disabled);
+}
+
+.link-active__dark-disabled {
+  color: var(--color-disabled) !important;
+}
 /* - - - - - - - - - - - grid - - - - - - - - - - -  */
 .flex {
   display: flex;
@@ -344,8 +383,8 @@ button:disabled svg {
   position: relative;
 }
 
-.w-38 {
-  width: 38px;
+.w-32 {
+  width: 32px;
 }
 
 .w-100 {
@@ -428,8 +467,9 @@ button:disabled svg {
 
 .menu__item {
   width: 100%;
-  padding: 1rem;
+  padding: 1rem 0;
   justify-content: center;
+  background-color: var(--color-primary);
 }
 
 /* - - - - - - - - - - - user - - - - - - - - - - -  */
@@ -540,7 +580,7 @@ button:disabled svg {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
-  box-shadow: 6px 6px 0 var(--color-warning);
+  box-shadow: 6px 6px 0 var(--color-primary-dark);
 }
 
 .search-results__list li {
@@ -606,8 +646,9 @@ button:disabled svg {
 }
 
 .card {
-  border: 1px solid var(--color-primary);
+  border: 1px solid var(--color-disabled);
   background-color: var(--color-dark-darker);
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
 }
@@ -725,9 +766,10 @@ button:disabled svg {
   justify-content: center;
   align-items: center;
   display: block;
-  width: 100%;
+  width: 30px;
   height: 30px;
-  border-radius: 4px;
+  border-radius: 60px;
+  margin: 0 auto;
 }
 
 .cart-table-items__color {
@@ -739,7 +781,7 @@ button:disabled svg {
 .card-group-wrapper {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  grid-template-rows: repeat(2, auto);
+  grid-template-rows: repeat(2, minmax(200px, 380px));
   grid-column-gap: 0px;
   grid-row-gap: 0px;
 }
@@ -775,6 +817,11 @@ button:disabled svg {
 .div2 {
   grid-area: 1 / 2 / 2 / 3;
 }
+
+.div2 img,
+.div3 img {
+  width: 200px;
+}
 .div3 {
   grid-area: 2 / 2 / 3 / 3;
 }
@@ -786,4 +833,15 @@ button:disabled svg {
   padding: 2rem 0;
   min-height: 8rem;
   margin-top: 2rem;
+}
+
+/* - - - - - - - - - - - price - - - - - - - - - - -  */
+.old-price {
+  text-decoration: line-through;
+  opacity: 0.2;
+}
+
+.new-price {
+  color: var(--color-primary);
+  font-size: 1.75rem;
 }

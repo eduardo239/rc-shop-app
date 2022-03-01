@@ -10,26 +10,38 @@ function CartMenu() {
     <ul className="menu menu__item">
       <li>
         <NavLink
-          className={(navData) => (navData.isActive ? 'link-active' : '')}
+          className={(navData) =>
+            navData.isActive
+              ? 'link-active__dark'
+              : 'link-active__dark-disabled'
+          }
           to="/cart/items"
         >
-          <MdProductionQuantityLimits />
+          <MdProductionQuantityLimits /> Produtos
         </NavLink>
       </li>
       <li>
         <NavLink
-          className={(navData) => (navData.isActive ? 'link-active' : '')}
+          className={(navData) =>
+            navData.isActive
+              ? 'link-active__dark'
+              : 'link-active__dark-disabled'
+          }
           to="/cart/address"
         >
-          <MdLocationOn />
+          <MdLocationOn /> Endereço
         </NavLink>
       </li>
       <li>
         <NavLink
-          className={(navData) => (navData.isActive ? 'link-active' : '')}
+          className={(navData) =>
+            navData.isActive
+              ? 'link-active__dark'
+              : 'link-active__dark-disabled'
+          }
           to="/cart/payment"
         >
-          <MdOutlinePayment />
+          <MdOutlinePayment /> Pagamento
         </NavLink>
       </li>
     </ul>

@@ -19,9 +19,9 @@ function AdminTableUsers({ users }) {
             <th>UID</th>
             <th>_id</th>
             <th>email</th>
-            <th className="w-38">A</th>
-            <th className="w-38">D</th>
-            <th className="w-38">U</th>
+            <th className="w-32">A</th>
+            <th className="w-32">D</th>
+            <th className="w-32">U</th>
           </tr>
         </thead>
 
@@ -33,18 +33,18 @@ function AdminTableUsers({ users }) {
                 <td>{user.uid}</td>
                 <td>{user._id}</td>
                 <td>{user.email}</td>
-                <td className="w-38">
+                <td className="w-32">
                   <InputCheck disabled checked={user.isAdmin} />
                 </td>
 
-                <td className="w-38">
+                <td className="w-32">
                   <Button
                     icon
                     value={<MdClose />}
                     onClick={() => handleDelete(user._id)}
                   />
                 </td>
-                <td className="w-38">
+                <td className="w-32">
                   <Button icon value={<MdLoop />} onClick={handleEdit} />
                 </td>
               </tr>
