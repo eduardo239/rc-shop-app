@@ -1,23 +1,27 @@
-import { useContext, useEffect, useState } from 'react';
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import { OrderContext } from '../context/OrderContext';
-import { UserContext } from '../context/UserContext';
-import { checkIfObjectIsInArrayOrder, convertToCurrency } from '../helper';
+import { useContext, useEffect, useState } from "react";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { OrderContext } from "../context/OrderContext";
+import { UserContext } from "../context/UserContext";
+import {
+  checkIfObjectIsInArrayOrder,
+  convertToCurrency,
+  promoCode,
+} from "../helper";
 import {
   MdOutlineAdd,
   MdOutlineAttachMoney,
   MdOutlineStarBorderPurple500,
-} from 'react-icons/md';
-import apiItem from '../api/item';
-import poster_default from '../assets/celular.png';
-import ButtonIcon from '../form/ButtonIcon';
-import Input from '../form/Input';
-import InputAdd from '../form/InputAdd';
-import Message from '../components/Message';
-import apis from '../api';
+} from "react-icons/md";
+import apiItem from "../api/item";
+import poster_default from "../assets/celular.png";
+import ButtonIcon from "../form/ButtonIcon";
+import Input from "../form/Input";
+import InputAdd from "../form/InputAdd";
+import Message from "../components/Message";
+import apis from "../api";
 
-const PROMO_10 = 'PROMO10';
-const PROMO_20 = 'PROMO20';
+const PROMO_10 = "PROMO10";
+const PROMO_20 = "PROMO20";
 
 function Item() {
   const { order, setOrder } = useContext(OrderContext);
@@ -26,26 +30,26 @@ function Item() {
   const navigate = useNavigate();
 
   const [item, setItem] = useState({});
-  const [promo, setPromo] = useState('');
+  const [promo, setPromo] = useState("");
   const [promoValid, setPromoValid] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const [message, setMessage] = useState('');
-  const [defaultColor, setDefaultColor] = useState('');
-  const [selectedColor, setSelectedColor] = useState('');
-  const [selectedStorage, setSelectedStorage] = useState('');
+  const [message, setMessage] = useState("");
+  const [defaultColor, setDefaultColor] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedStorage, setSelectedStorage] = useState("");
   const [discount, setDiscount] = useState(0);
   const [alreadyFavorite, setAlreadyFavorite] = useState(false);
 
   const handleBuy = () => {
-    setMessage('');
+    setMessage("");
 
     if (!selectedColor) {
-      setMessage('Selecione a cor do produto.');
+      setMessage("Selecione a cor do produto.");
       return;
     }
 
     if (!selectedStorage) {
-      setMessage('Selecione um tamanho de armazenamento.');
+      setMessage("Selecione um tamanho de armazenamento.");
       return;
     }
 
@@ -57,7 +61,7 @@ function Item() {
     );
 
     if (contain) {
-      setMessage('Produto já adicionado ao carrinho.');
+      setMessage("Produto já adicionado ao carrinho.");
       return;
     }
 
@@ -70,7 +74,7 @@ function Item() {
           {
             _id: item._id,
             price: promoValid ? item.price - item.price * discount : item.price,
-            promo: promoValid ? promo : '',
+            promo: promoValid ? promo : "",
             quantity: parseFloat(quantity),
             total:
               (promoValid ? item.price - item.price * discount : item.price) *
@@ -82,26 +86,15 @@ function Item() {
         ],
       });
 
-      setMessage('Produto adicionado ao carrinho!');
+      setMessage("Produto adicionado ao carrinho!");
     } else {
-      alert('Para comprar é necessário estar logado');
+      alert("Para comprar é necessário estar logado");
     }
   };
 
   const handlePromoCode = async (promo) => {
     setPromo(promo);
-    if (promo === PROMO_10) {
-      setPromoValid(true);
-      setDiscount(0.1);
-      setMessage('Promoção de 10% aplicada');
-    } else if (promo === PROMO_20) {
-      setPromoValid(true);
-      setDiscount(0.2);
-      setMessage('Promoção de 20% aplicada');
-    } else {
-      setPromoValid(false);
-      setMessage('Código inválido');
-    }
+    promoCode(promo, setDiscount, setPromoValid);
   };
 
   const handleAddToFavorite = async () => {
@@ -113,7 +106,7 @@ function Item() {
         } = await apis.checkIfItemIsFavorite(userInfo.uid, payload);
 
         if (response) {
-          setMessage('Este item já está adicionado aos favoritos.');
+          setMessage("Este item já está adicionado aos favoritos.");
           return;
         } else {
           try {
@@ -122,7 +115,7 @@ function Item() {
             };
             const response = await apis.addToFavorite(userInfo.uid, payload);
             if (response.status === 200) {
-              setMessage('Item adicionado aos favoritos');
+              setMessage("Item adicionado aos favoritos");
               setUserInfo(response.data.data);
             }
           } catch (err) {
@@ -133,7 +126,7 @@ function Item() {
         console.log(error);
       }
     } else {
-      alert('Para adicionar aos favoritos é necessário estar logado');
+      alert("Para adicionar aos favoritos é necessário estar logado");
     }
   };
 
@@ -142,7 +135,7 @@ function Item() {
       const response = await apis.removeFromFavorites(userInfo.uid, itemId);
       console.log(response.data.data);
       if (response.status === 200) {
-        setMessage('Item removido dos favoritos');
+        setMessage("Item removido dos favoritos");
         setUserInfo(response.data.data);
       }
     } catch (error) {
@@ -168,7 +161,7 @@ function Item() {
           }
         } catch (err) {
           console.log(err.message);
-          navigate('/product-not-found');
+          navigate("/product-not-found");
         }
       }
     })();
@@ -186,7 +179,7 @@ function Item() {
         });
 
         if (isMounted && data.response) {
-          setAlreadyFavorite('Este item já está adicionado aos favoritos.');
+          setAlreadyFavorite("Este item já está adicionado aos favoritos.");
         }
       })();
     }
