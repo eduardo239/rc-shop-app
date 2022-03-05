@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/rc-shop-app/static/css/main.cb020811.css",
-    "main.js": "/rc-shop-app/static/js/main.8a00ec8f.js",
+    "main.css": "/rc-shop-app/static/css/main.8ebae9f9.css",
+    "main.js": "/rc-shop-app/static/js/main.591c2c7d.js",
     "static/media/celular.png": "/rc-shop-app/static/media/celular.058030a684be073c1b8d.png",
     "index.html": "/rc-shop-app/index.html",
-    "main.cb020811.css.map": "/rc-shop-app/static/css/main.cb020811.css.map",
-    "main.8a00ec8f.js.map": "/rc-shop-app/static/js/main.8a00ec8f.js.map"
+    "main.8ebae9f9.css.map": "/rc-shop-app/static/css/main.8ebae9f9.css.map",
+    "main.591c2c7d.js.map": "/rc-shop-app/static/js/main.591c2c7d.js.map"
   },
   "entrypoints": [
-    "static/css/main.cb020811.css",
-    "static/js/main.8a00ec8f.js"
+    "static/css/main.8ebae9f9.css",
+    "static/js/main.591c2c7d.js"
   ]
 }
