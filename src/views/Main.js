@@ -1,26 +1,26 @@
-import { Link, Navigate, Route, Routes } from 'react-router-dom';
-import { useContext } from 'react';
-import { ItemContext } from '../context/ItemContext';
-import { convertToCurrency } from '../helper';
-import Admin from '../admin';
-import Menu from '../components/Menu';
-import SignIn from '../views/SignIn';
-import SignUp from '../views/SignUp';
-import Items from '../views/Items';
-import Item from '../views/Item';
-import UserWrapper from './UserWrapper';
-import UserOrders from '../components/UserOrders';
-import UserEdit from '../components/UserEdit';
-import UserHome from '../components/UserHome';
-import Cart from './Cart';
-import CartItems from '../components/CartItems';
-import CartAddress from '../components/CartAddress';
-import CartPayment from '../components/CartPayment';
-import ItemNotFound from './ItemNotFound';
-import NotFound from './404';
-import UserFavorites from '../components/UserFavorites';
-import Button from '../form/Button';
-import { MdClose } from 'react-icons/md';
+import { Link, Navigate, Route, Routes } from "react-router-dom";
+import { useContext } from "react";
+import { ItemContext } from "../context/ItemContext";
+import { convertToCurrency } from "../helper";
+import { MdClose } from "react-icons/md";
+import Admin from "../admin";
+import Menu from "../components/Menu";
+import SignIn from "../views/SignIn";
+import SignUp from "../views/SignUp";
+import Home from "../views/Home";
+import Item from "../views/Item";
+import UserWrapper from "./UserWrapper";
+import UserOrders from "../components/UserOrders";
+import UserEdit from "../components/UserEdit";
+import UserHome from "../components/UserHome";
+import Cart from "./Cart";
+import CartItems from "../components/CartItems";
+import CartAddress from "../components/CartAddress";
+import CartPayment from "../components/CartPayment";
+import ItemNotFound from "./ItemNotFound";
+import NotFound from "./404";
+import UserFavorites from "../components/UserFavorites";
+import Button from "../form/Button";
 
 function Main() {
   const { searchResults, setSearchResults } = useContext(ItemContext);
@@ -74,7 +74,7 @@ function Main() {
                 <Route path="address" element={<CartAddress />} />
                 <Route path="payment" element={<CartPayment />} />
               </Route>
-              <Route path="/" exact element={<Items />} />
+              <Route path="/" exact element={<Home />} />
               <Route path="/:id" element={<Item />} />
               <Route path="/user/:id" element={<UserWrapper />}>
                 <Route path="home" element={<UserHome />} />

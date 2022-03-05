@@ -1,8 +1,8 @@
-import { useContext } from 'react';
-import { ItemContext } from '../context/ItemContext';
-import Card from '../components/Card';
-import CardGroup from '../components/CardGroup';
-import poster_default from '../assets/celular.png';
+import { useContext } from "react";
+import { ItemContext } from "../context/ItemContext";
+import Card from "../components/Card";
+import CardGroup from "../components/CardGroup";
+import poster_default from "../assets/celular.png";
 
 function Items() {
   const { items } = useContext(ItemContext);
@@ -16,6 +16,7 @@ function Items() {
       <section className="cards-wrapper">
         {items.length > 0 ? (
           items
+            .slice(-4)
             .map((item) => (
               <Card
                 key={item._id}
