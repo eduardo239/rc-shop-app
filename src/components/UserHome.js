@@ -5,7 +5,7 @@ function UserHome() {
   const { userInfo } = useContext(UserContext);
 
   return (
-    <section>
+    <section className="user-section">
       <div>
         <h3>Perfil</h3>
       </div>

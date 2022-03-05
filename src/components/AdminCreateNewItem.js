@@ -1,37 +1,37 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
-import { ItemContext } from "../context/ItemContext";
-import apiItem from "../api/item";
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
+import { ItemContext } from '../context/ItemContext';
+import apiItem from '../api/item';
 import {
   MdOutlineSave,
   MdOutlineCleaningServices,
   MdOutlineAdd,
   MdLoop,
-} from "react-icons/md";
-import Message from "./Message";
-import InputAdd from "../form/InputAdd";
-import Input from "../form/Input";
-import ButtonIcon from "../form/ButtonIcon";
+} from 'react-icons/md';
+import Message from './Message';
+import InputAdd from '../form/InputAdd';
+import Input from '../form/Input';
+import ButtonIcon from '../form/ButtonIcon';
 
 function AdminCreateNewItem({ updateDisabled, setUpdateDisabled }) {
   const { user, userInfo } = useContext(UserContext);
   const { setItems, item } = useContext(ItemContext);
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [poster, setPoster] = useState("https://i.imgur.com/FVHGfS0.png");
-  const [info, setInfo] = useState("");
-  const [category, setCategory] = useState("");
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [poster, setPoster] = useState('https://i.imgur.com/FVHGfS0.png');
+  const [info, setInfo] = useState('');
+  const [category, setCategory] = useState('');
   const [categories, setCategories] = useState([]);
-  const [storage, setStorage] = useState("");
+  const [storage, setStorage] = useState('');
   const [storages, setStorages] = useState([]);
-  const [color, setColor] = useState("#ffffff");
+  const [color, setColor] = useState('#ffffff');
   const [colors, setColors] = useState([]);
   const [specs, setSpecs] = useState([]);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,8 +52,8 @@ function AdminCreateNewItem({ updateDisabled, setUpdateDisabled }) {
       const res = await apiItem.getAllItems();
       setItems(res.data.data);
       if (res.status === 200) {
-        setMessage("Item created successfully");
-        setTimeout(() => setMessage(""), 3000);
+        setMessage('Item created successfully');
+        setTimeout(() => setMessage(''), 3000);
       }
     } catch (err) {
       console.log(err);
@@ -86,16 +86,16 @@ function AdminCreateNewItem({ updateDisabled, setUpdateDisabled }) {
   };
 
   const handleReset = () => {
-    setName("");
-    setDescription("");
-    setPrice("");
+    setName('');
+    setDescription('');
+    setPrice('');
     // setPoster('');
-    setInfo("");
-    setCategory("");
+    setInfo('');
+    setCategory('');
     setCategories([]);
-    setStorage("");
+    setStorage('');
     setStorages([]);
-    setColor("#ffffff");
+    setColor('#ffffff');
     setColors([]);
     setSpecs([]);
   };
@@ -107,17 +107,17 @@ function AdminCreateNewItem({ updateDisabled, setUpdateDisabled }) {
   };
 
   const handleAddToArray = (type) => {
-    if (type === "colors") {
+    if (type === 'colors') {
       setColors([...colors, color]);
-      setColor("#ffffff");
-    } else if (type === "storages") {
+      setColor('#ffffff');
+    } else if (type === 'storages') {
       setStorages([...storages, storage]);
-      setStorage("");
-    } else if (type === "categories") {
+      setStorage('');
+    } else if (type === 'categories') {
       setCategories([...categories, category]);
-      setCategory("");
+      setCategory('');
     } else {
-      console.log("Error while adding to array");
+      console.log('Error while adding to array');
     }
   };
 
@@ -125,10 +125,10 @@ function AdminCreateNewItem({ updateDisabled, setUpdateDisabled }) {
     if (user) {
       (async () => {
         // generatePoster();
-        if (!userInfo.isAdmin) navigate("/");
+        if (!userInfo.isAdmin) navigate('/');
       })();
     } else {
-      navigate("/");
+      navigate('/');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, userInfo]);
@@ -197,7 +197,7 @@ function AdminCreateNewItem({ updateDisabled, setUpdateDisabled }) {
             onChange={(e) => setCategory(e.target.value)}
             value={category}
             buttonValue={<MdOutlineAdd />}
-            onButtonClick={(e) => handleAddToArray("categories")}
+            onButtonClick={(e) => handleAddToArray('categories')}
           />
           <Input
             label="Categoria"
@@ -212,7 +212,7 @@ function AdminCreateNewItem({ updateDisabled, setUpdateDisabled }) {
             onChange={(e) => setStorage(e.target.value)}
             value={storage}
             buttonValue={<MdOutlineAdd />}
-            onButtonClick={(e) => handleAddToArray("storages")}
+            onButtonClick={(e) => handleAddToArray('storages')}
           />
 
           <Input
@@ -229,7 +229,7 @@ function AdminCreateNewItem({ updateDisabled, setUpdateDisabled }) {
             onChange={(e) => setColor(e.target.value)}
             value={color}
             buttonValue={<MdOutlineAdd />}
-            onButtonClick={(e) => handleAddToArray("colors")}
+            onButtonClick={(e) => handleAddToArray('colors')}
           />
           <Input
             label="Cores"
@@ -238,7 +238,7 @@ function AdminCreateNewItem({ updateDisabled, setUpdateDisabled }) {
             value={colors}
           />
           <hr />
-          <div className="flex mb-20">
+          <div className="flex flex-wrap mb-20">
             <ButtonIcon
               iconAfter={<MdOutlineCleaningServices />}
               type="button"

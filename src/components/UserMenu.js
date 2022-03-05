@@ -8,14 +8,16 @@ function UserMenu() {
   const { userInfo } = useContext(UserContext);
 
   return (
-    <section>
+    <section className="user-menu">
       <Avatar url={userInfo?.avatar ? userInfo.avatar : random_avatar} />
       <div>
         <h4>User</h4>
-        <ul>
+        <ul className="user-menu__wrapper">
           <li>
             <NavLink
-              className={(navData) => (navData.isActive ? 'link-active' : '')}
+              className={(navData) =>
+                navData.isActive ? 'menu-link active' : 'menu-link'
+              }
               to={`/user/${userInfo?.uid}/home`}
             >
               Home
@@ -23,7 +25,9 @@ function UserMenu() {
           </li>
           <li>
             <NavLink
-              className={(navData) => (navData.isActive ? 'link-active' : '')}
+              className={(navData) =>
+                navData.isActive ? 'menu-link active' : 'menu-link'
+              }
               to={`/user/${userInfo?.uid}/edit`}
             >
               Editar
@@ -31,7 +35,9 @@ function UserMenu() {
           </li>
           <li>
             <NavLink
-              className={(navData) => (navData.isActive ? 'link-active' : '')}
+              className={(navData) =>
+                navData.isActive ? 'menu-link active' : 'menu-link'
+              }
               to={`/user/${userInfo?.uid}/orders`}
             >
               Pedidos
@@ -39,7 +45,9 @@ function UserMenu() {
           </li>
           <li>
             <NavLink
-              className={(navData) => (navData.isActive ? 'link-active' : '')}
+              className={(navData) =>
+                navData.isActive ? 'menu-link active' : 'menu-link'
+              }
               to={`/user/${userInfo?.uid}/favorites`}
             >
               Favoritos

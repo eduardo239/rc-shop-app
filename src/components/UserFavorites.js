@@ -36,7 +36,7 @@ function UserFavorites() {
   }, [userInfo]);
 
   return (
-    <section>
+    <section className="user-section">
       <div>
         <h3>Favoritos</h3>
       </div>

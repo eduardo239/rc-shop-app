@@ -14,6 +14,7 @@ import './css/normalize.css';
 import './css/bootstrap.min.css';
 import './css/index.css';
 import './css/style.css';
+import './css/slider.css';
 
 ReactDOM.render(
   <React.StrictMode>

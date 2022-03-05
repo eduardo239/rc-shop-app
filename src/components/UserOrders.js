@@ -8,7 +8,7 @@ function UserOrders() {
   console.log(order);
 
   return (
-    <section>
+    <section className="user-section">
       <div>
         <h3>Pedidos</h3>
       </div>

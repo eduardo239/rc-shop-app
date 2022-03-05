@@ -72,7 +72,7 @@ function Menu() {
               <li>
                 <NavLink
                   className={(navData) =>
-                    navData.isActive ? 'link-active' : ''
+                    navData.isActive ? 'menu-link active' : 'menu-link'
                   }
                   to="/"
                 >
@@ -82,7 +82,7 @@ function Menu() {
               <li>
                 <NavLink
                   className={(navData) =>
-                    navData.isActive ? 'link-active' : ''
+                    navData.isActive ? 'menu-link active' : 'menu-link'
                   }
                   to="/cart/items"
                 >
@@ -90,12 +90,14 @@ function Menu() {
                 </NavLink>
               </li>
               <div className="ballon">
-                <span>{order.items.length}</span>
+                <span className="color-dark">
+                  <b>{order.items.length}</b>
+                </span>
               </div>
               <li>
                 <NavLink
                   className={(navData) =>
-                    navData.isActive ? 'link-active' : ''
+                    navData.isActive ? 'menu-link active' : 'menu-link'
                   }
                   to="/admin"
                 >
@@ -116,7 +118,7 @@ function Menu() {
                   <li>
                     <NavLink
                       className={(navData) =>
-                        navData.isActive ? 'link-active' : ''
+                        navData.isActive ? 'menu-link active' : 'menu-link'
                       }
                       to="/signin"
                     >
@@ -126,7 +128,7 @@ function Menu() {
                   <li>
                     <NavLink
                       className={(navData) =>
-                        navData.isActive ? 'link-active' : ''
+                        navData.isActive ? 'menu-link active' : 'menu-link'
                       }
                       to="/signup"
                     >
@@ -138,7 +140,13 @@ function Menu() {
               {user && (
                 <>
                   <li>
-                    <NavLink to="#" onClick={handleTheme}>
+                    <NavLink
+                      className={(navData) =>
+                        navData.isActive ? 'menu-link active' : 'menu-link'
+                      }
+                      to="#"
+                      onClick={handleTheme}
+                    >
                       {theme === 'dark' ? (
                         <MdOutlineBedtime />
                       ) : (
@@ -149,7 +157,7 @@ function Menu() {
                   <li>
                     <NavLink
                       className={(navData) =>
-                        navData.isActive ? 'link-active' : ''
+                        navData.isActive ? 'menu-link active' : 'menu-link'
                       }
                       to={`/user/${user.uid}/home`}
                     >
@@ -157,7 +165,13 @@ function Menu() {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="#" onClick={logout}>
+                    <NavLink
+                      className={(navData) =>
+                        navData.isActive ? 'menu-link active' : 'menu-link'
+                      }
+                      to="#"
+                      onClick={logout}
+                    >
                       <MdOutlineSensorDoor />
                     </NavLink>
                   </li>

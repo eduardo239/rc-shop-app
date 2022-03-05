@@ -52,7 +52,7 @@ function UserEdit() {
   }, [userInfo]);
 
   return (
-    <section>
+    <section className="user-section">
       <div>
         <h3>Editar</h3>
       </div>
