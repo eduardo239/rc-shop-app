@@ -22,6 +22,11 @@ import Input from "../form/Input";
 import InputAdd from "../form/InputAdd";
 import Message from "../components/Message";
 import apis from "../api";
+import ItemTitle from "../component/ItemTitle";
+import ItemTitleFav from "../component/ItemTitleFav";
+import ItemColors from "../component/ItemColors";
+import ItemStorage from "../component/ItemStorage";
+import ItemPromo from "../component/ItemPromo";
 
 function Item() {
   const { order, setOrder } = useContext(OrderContext);
@@ -86,8 +91,14 @@ function Item() {
   };
 
   const handlePromoCode = async (promo) => {
+    setMessage("");
     setPromo(promo);
     promoCode(promo, setDiscount, setPromoValid);
+    if (promoValid) {
+      setMessage("Promoção válida");
+    } else {
+      setMessage("Promoção inválida");
+    }
   };
 
   const handleAddToFavorite = async () => {
@@ -156,72 +167,31 @@ function Item() {
         className="item-wrapper__poster"
         style={{ background: defaultColor || selectedColor }}
       >
-        <div className="item-wrapper__title">
-          <h4>Title: {item.name}</h4>
-          <p>{convertToCurrency(item.price)}</p>
-        </div>
+        <ItemTitle item={item} />
 
-        <div className="item-wrapper__favorite">
-          {!!alreadyFavorite}
-          {alreadyFavorite ? (
-            <NavLink
-              className="icon-active"
-              to="#"
-              onClick={() => handleRemoveFromFavorite(item._id)}
-            >
-              <MdOutlineStarBorderPurple500 />
-            </NavLink>
-          ) : (
-            <NavLink to="#" onClick={() => handleAddToFavorite(item._id)}>
-              <MdOutlineStarBorderPurple500 />
-            </NavLink>
-          )}
-        </div>
+        <ItemTitleFav
+          item={item}
+          alreadyFavorite={alreadyFavorite}
+          handleRemoveFromFavorite={handleRemoveFromFavorite}
+          handleAddToFavorite={handleAddToFavorite}
+        />
 
         <img
           className="card-group__img"
           src={item.poster ? item.poster : poster_default}
-          alt=""
+          alt={item.name || "Produto"}
         />
       </div>
 
       <div className="item-wrapper__info">
         <div className="flex-1">
-          <h5>Cores</h5>
-          <div className="item-wrapper__info-color mb-20">
-            {item?.colors?.length > 0 ? (
-              item.colors.map((color) => (
-                <button
-                  key={color}
-                  style={{ backgroundColor: color }}
-                  className="btn-color-select"
-                  onClick={() => handleChangeColor(color)}
-                ></button>
-              ))
-            ) : (
-              <p>Não há armazéns cadastrados</p>
-            )}
-          </div>
-          <h5>Aramzenamento</h5>
-          <div className="item-wrapper__info-color mb-20">
-            {item?.storages?.length > 0 ? (
-              item.storages.map((storage) => (
-                <button
-                  className="btn-storage-select"
-                  key={storage}
-                  onClick={() => setSelectedStorage(storage)}
-                >
-                  {storage} GB
-                </button>
-              ))
-            ) : (
-              <p>Não há armazéns cadastrados</p>
-            )}
-          </div>
+          <ItemColors item={item} handleChangeColor={handleChangeColor} />
+          <hr />
+          <ItemStorage item={item} setSelectedStorage={setSelectedStorage} />
+          <hr />
           <div>
-            <p>Description: {item.description}</p>
+            <p>{item.description}</p>
           </div>
-
           <div className="mb-10">
             <Input
               label="Quantidade"
@@ -233,20 +203,7 @@ function Item() {
         </div>
 
         <div className="mb-10">
-          <h6>Preço</h6>
-          {!promoValid ? (
-            <>
-              <h5 className="new-price">{convertToCurrency(item.price)}</h5>
-            </>
-          ) : (
-            <>
-              <p className="old-price">{convertToCurrency(item.price)}</p>
-              <small>Preço com código promocional</small>
-              <h5 className="new-price">
-                {convertToCurrency(item.price - item.price * discount)}
-              </h5>
-            </>
-          )}
+          <ItemPromo item={item} promoValid={promoValid} discount={discount} />
         </div>
 
         <div className="mb-10">
