@@ -1,4 +1,4 @@
-const { isEmpty, arrayRemover } = require('../helper');
+const { isEmpty } = require('../helper');
 const User = require('../models/User');
 const Item = require('../models/item');
 
@@ -251,6 +251,48 @@ const checkIfFavorited = (req, res) => {
     .catch((err) => console.error(err));
 };
 
+const addToUserHistory = (req, res) => {
+  const body = req.body;
+  console.log(body);
+  console.log(req.params);
+
+  if (isEmpty(req.body)) {
+    return res.status(400).json({
+      success: false,
+      error: `You must provider a body to update`,
+    });
+  }
+
+  User.findOne({ uid: req.params.id }, (err, user) => {
+    if (err) {
+      return res.status(404).json({
+        err,
+        message: `User not found`,
+      });
+    }
+    // FIXME: add item to history
+    user.history_id.push(body._id);
+    user.save();
+
+    user
+      .save()
+      .then(() => {
+        return res.status(200).json({
+          success: true,
+          id: user._id,
+          message: `User history updated!`,
+          item: user,
+        });
+      })
+      .catch((err) => {
+        return res.status(404).json({
+          err,
+          message: `User history error@`,
+        });
+      });
+  });
+};
+
 module.exports = {
   newUser,
   allUsers,
@@ -262,4 +304,5 @@ module.exports = {
   removeFromFavorite,
   getUserFavorites,
   checkIfFavorited,
+  addToUserHistory,
 };

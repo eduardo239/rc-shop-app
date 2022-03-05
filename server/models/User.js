@@ -10,6 +10,7 @@ const User = new Schema(
     email: { type: String, required: true, unique: true },
     isAdmin: { type: Boolean, required: true, default: false },
     favorites_id: [{ type: Schema.Types.ObjectId, ref: 'Item' }],
+    history_id: [{ type: Schema.Types.ObjectId, ref: 'Item' }],
   },
   { timestamps: true }
 );

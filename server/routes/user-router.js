@@ -14,5 +14,6 @@ router.put('/add-to-favorite/:id', UserController.addToFavorite);
 router.delete('/remove-from-favorite/:id', UserController.removeFromFavorite);
 router.get('/user-favorites/:id', UserController.getUserFavorites);
 router.get('/check-if-is-favorite/:id', UserController.checkIfFavorited);
+router.put('/add-to-history/:id', UserController.addToUserHistory);
 
 module.exports = router;

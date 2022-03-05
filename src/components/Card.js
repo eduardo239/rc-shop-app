@@ -8,7 +8,7 @@ function Card({ id, title, content, alt, poster, colors, storages, specs }) {
     e.preventDefault();
     navigate(`/${id}`);
   };
-  console.log(colors[0]);
+
   return (
     <div className="card" style={{ background: colors[0] }}>
       <Link to={`/${id}`}>
