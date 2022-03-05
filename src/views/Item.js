@@ -4,6 +4,7 @@ import { OrderContext } from "../context/OrderContext";
 import { UserContext } from "../context/UserContext";
 import {
   addItemToFavorites,
+  buy,
   checkIfObjectIsInArrayOrder,
   convertToCurrency,
   promoCode,
@@ -65,27 +66,20 @@ function Item() {
     }
 
     if (userInfo) {
-      setOrder({
-        ...order,
-        userId: userInfo._id,
-        items: [
-          ...order.items,
-          {
-            _id: item._id,
-            price: promoValid ? item.price - item.price * discount : item.price,
-            promo: promoValid ? promo : "",
-            quantity: parseFloat(quantity),
-            total:
-              (promoValid ? item.price - item.price * discount : item.price) *
-              parseFloat(quantity),
-            name: item.name,
-            color: selectedColor,
-            storage: selectedStorage,
-          },
-        ],
-      });
+      buy(
+        order,
+        userInfo,
+        item,
+        promoValid,
+        promo,
+        discount,
+        quantity,
+        selectedColor,
+        selectedStorage,
+        setOrder
+      );
 
-      setMessage("Produto adicionado ao carrinho!");
+      setMessage("Produto adicionado ao carrinho");
     } else {
       alert("Para comprar é necessário estar logado");
     }
