@@ -3,9 +3,11 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { OrderContext } from "../context/OrderContext";
 import { UserContext } from "../context/UserContext";
 import {
+  addItemToFavorites,
   checkIfObjectIsInArrayOrder,
   convertToCurrency,
   promoCode,
+  removeItemFromFavorites,
 } from "../helper";
 import {
   MdOutlineAdd,
@@ -19,9 +21,6 @@ import Input from "../form/Input";
 import InputAdd from "../form/InputAdd";
 import Message from "../components/Message";
 import apis from "../api";
-
-const PROMO_10 = "PROMO10";
-const PROMO_20 = "PROMO20";
 
 function Item() {
   const { order, setOrder } = useContext(OrderContext);
@@ -99,47 +98,17 @@ function Item() {
 
   const handleAddToFavorite = async () => {
     if (userInfo) {
-      try {
-        const payload = { favoriteId: item._id };
-        const {
-          data: { response },
-        } = await apis.checkIfItemIsFavorite(userInfo.uid, payload);
-
-        if (response) {
-          setMessage("Este item já está adicionado aos favoritos.");
-          return;
-        } else {
-          try {
-            const payload = {
-              _id: item._id,
-            };
-            const response = await apis.addToFavorite(userInfo.uid, payload);
-            if (response.status === 200) {
-              setMessage("Item adicionado aos favoritos");
-              setUserInfo(response.data.data);
-            }
-          } catch (err) {
-            console.log(err.message);
-          }
-        }
-      } catch (error) {
-        console.log(error);
-      }
+      addItemToFavorites(item, userInfo, setMessage, setUserInfo);
     } else {
       alert("Para adicionar aos favoritos é necessário estar logado");
     }
   };
 
   const handleRemoveFromFavorite = async (itemId) => {
-    try {
-      const response = await apis.removeFromFavorites(userInfo.uid, itemId);
-      console.log(response.data.data);
-      if (response.status === 200) {
-        setMessage("Item removido dos favoritos");
-        setUserInfo(response.data.data);
-      }
-    } catch (error) {
-      console.log(error);
+    if (userInfo) {
+      removeItemFromFavorites(itemId, userInfo, setMessage, setUserInfo);
+    } else {
+      alert("Para remover dos favoritos é necessário estar logado");
     }
   };
 
